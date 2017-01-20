@@ -16,9 +16,9 @@ body {
 	left: 50%;
 	z-index: 10;
 	text-align: center;
-	width: 200px;
-	margin-left: -100px;
-	margin-top: -100px;
+	width: 300px;
+	margin-left: -150px;
+	margin-top: -150px;
 	background: white;
 	border: 1px solid #333;
 	border-radius: 5px;

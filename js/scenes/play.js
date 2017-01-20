@@ -1,27 +1,70 @@
-define(['lib/scene', 'entity/player', 'lib/map', 'lib/viewport', 'basic/rect', 'config/colors', 'geo/v2'],
-		function(Scene, Player, TiledMap, ViewPort, RectEntity, colors, V2 ) {
+define(['lib/scene', 'geo/v2', 'lib/isogrid', 'entity/room'],
+		function(Scene, V2, IsoGrid, Room ) {
 			function PlayScene() {
 				Scene.call(this);
 
-				var player = new Player(new V2(500, 500));
-				var map = new TiledMap('map');
-				var viewport = new ViewPort(true);
-				viewport.add(map.render(['bg', 'Below']));
-				viewport.add(player);
-				viewport.add(map.render(['More']));
-				viewport.add(new RectEntity(new V2(1000, 900), new V2(100, 100), colors.default));
 
-				//viewport.follow(player);
-				//viewport.dragable(true);
-				viewport.scrollTo(new V2(-200,-200), 3000, function() {
-					viewport.dragable(true);
-				});
+				var shapes = [
+					[
+						[1, 1, 1],
+						[1, 1, 1],
+						[1, 1, 1]
+					],
+					[
+						[1, 1, 1],
+						[1, 1, 1],
+						[1, 1, 0]
+					],
+					[
+						[1, 1, 1, 1, 1],
+						[1, 1, 1, 1, 1]
+					],
+					[
+						[1, 0, 0],
+						[1, 1, 1],
+						[1, 1, 1],
+						[1, 0, 0]
+					],
+					[
+						[1, 0, 0, 1],
+						[1, 1, 1, 1],
+						[1, 1, 1, 1],
+						[1, 0, 0, 1]
+					],
+					[
+						[1, 1, 0],
+						[1, 1, 1],
+						[1, 1, 1],
+						[0, 1, 1]
+					],
+					[
+						[1, 1, 0],
+						[1, 1, 1],
+						[1, 1, 1],
+						[1, 1, 0]
+					],
+					[
+						[1, 1, 1, 1],
+						[1, 1, 1, 1],
+						[0, 1, 1, 0]
+					],
+				];
 
-				this.add(viewport);
-				this.keyAware.push(player);
+
+
+				var grid = new IsoGrid(this, 64, 32);
+				this.room = new Room(Zero(), shapes[5], grid);
+
+				this.add(this.room);
 			}
 
 			PlayScene.prototype = new Scene();
+
+			PlayScene.prototype.update = function (delta) {
+				this.display = document.getElementById('gameframe');
+				this.display.width = this.room.size.x;
+				this.display.height = this.room.size.y;
+			};
 
 			return PlayScene;
 		}
