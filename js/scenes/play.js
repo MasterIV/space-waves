@@ -7,8 +7,9 @@ define([
 		'entity/background',
 		'entity/cursor',
 		'entity/map',
-		'entity/creature'
-	], function (Scene, V2, UIController, IsoGrid, Viewport, Bg, Cursor, Map, Creature) {
+		'entity/creature',
+		'entity/ship'
+	], function (Scene, V2, UIController, IsoGrid, Viewport, Bg, Cursor, Map, Creature, Ship) {
 			function PlayScene() {
 				Scene.call(this);
 				this.viewport = new Viewport();
@@ -24,8 +25,9 @@ define([
 
 				this.viewport.add(map);
 				this.viewport.add(this.cursor);
-				this.viewport.add(new Creature(new V2(0, 0), map, 1, units.alien ));
+				this.viewport.add(new Creature(new V2(0, 0), map, 1, units.engineer ));
 
+				this.viewport.add(Ship.spawn(map, 1));
 
 				this.add(new Bg(this.size));
 				this.add(this.viewport);
