@@ -6,56 +6,8 @@ define(['lib/scene', 'geo/v2', 'entity/uicontroller', 'lib/isogrid', 'entity/roo
 				this.gui = new UIController();
 				this.add(this.gui);
 
-				var shapes = [
-					[
-						[1, 1, 1],
-						[1, 1, 1],
-						[1, 1, 1]
-					],
-					[
-						[1, 1, 1],
-						[1, 1, 1],
-						[1, 1, 0]
-					],
-					[
-						[1, 1, 1, 1, 1],
-						[1, 1, 1, 1, 1]
-					],
-					[
-						[1, 0, 0],
-						[1, 1, 1],
-						[1, 1, 1],
-						[1, 0, 0]
-					],
-					[
-						[1, 0, 0, 1],
-						[1, 1, 1, 1],
-						[1, 1, 1, 1],
-						[1, 0, 0, 1]
-					],
-					[
-						[1, 1, 0],
-						[1, 1, 1],
-						[1, 1, 1],
-						[0, 1, 1]
-					],
-					[
-						[1, 1, 0],
-						[1, 1, 1],
-						[1, 1, 1],
-						[1, 1, 0]
-					],
-					[
-						[1, 1, 1, 1],
-						[1, 1, 1, 1],
-						[0, 1, 1, 0]
-					],
-				];
-
-
-
 				var grid = new IsoGrid(this, 64, 32);
-				this.room = new Room(Zero(), shapes[5], grid);
+				this.room = new Room(Zero(), rooms[10].shape, grid);
 
 				this.add(this.room);
 			}
