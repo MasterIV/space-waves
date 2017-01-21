@@ -1,5 +1,5 @@
-define(['basic/entity', 'geo/v2', 'basic/text', 'basic/rect', 'basic/image'],
-		function(Entity, V2, TextEntity, RectEntity, ImageEntity) {
+define(['basic/entity', 'geo/v2', 'basic/text', 'basic/rect', 'basic/image', 'core/graphic'],
+		function(Entity, V2, TextEntity, RectEntity, ImageEntity, g) {
 			function Button(pos, callback) {
 				Entity.call(this, pos);
 				this.onClick = function(p) {
@@ -33,10 +33,19 @@ define(['basic/entity', 'geo/v2', 'basic/text', 'basic/rect', 'basic/image'],
 			};
 
 			Button.prototype.img = function(src, scale) {
-				var img = new ImageEntity(Zero(), src, scale);
-				this.size.x = Math.max(img.size.x, this.size.x);
-				this.size.y = Math.max(img.size.y, this.size.y);
-				this.add(img);
+				this.normal = src;
+				this.img = new ImageEntity(Zero(), src, scale);
+				this.size.x = Math.max(this.img.size.x, this.size.x);
+				this.size.y = Math.max(this.img.size.y, this.size.y);
+				this.add(this.img);
+				return this;
+			};
+
+			Button.prototype.highlight = function(src) {
+				this.onUpdate = function() {
+					this.img.img = this.hover() ? g[src] : g[this.normal];
+				};
+
 				return this;
 			};
 
