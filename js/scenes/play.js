@@ -15,7 +15,7 @@ define([
 				this.viewport.dragable(true, true);
 				var grid = new IsoGrid(this.viewport, 64, 32);
 
-				this.viewport.add(new Room(Zero(), 'main'));
+				this.viewport.add(new Room(new V2(-1, -1), grid, rooms[0]));
 				this.viewport.add(new Cursor(grid, {at: function() {return true;}}, function(p) {console.log(p)}));
 
 
