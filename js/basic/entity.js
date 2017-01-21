@@ -58,6 +58,7 @@ define(['geo/v2', 'geo/rect', 'core/mouse'], function(V2, Rect, mouse) {
 	};
 
 	Entity.prototype.block = function (entity) {
+		entity.setParent(this);
 		this.blocking.push(entity);
 	};
 

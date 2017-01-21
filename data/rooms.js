@@ -1,8 +1,8 @@
 var rooms = [
 	{
 		img: 'img/room/room0_grau.png',
-		icon: '',
-		name: '',
+		icon: 'img/build menu/build_energy.png',
+		name: 'Something',
 		energy: 0,
 		costs: 0,
 		enabled: true,
@@ -15,6 +15,10 @@ var rooms = [
 	{
 		img: 'img/room/room1_grau.png',
 		enabled: true,
+		icon: 'img/build menu/build_energy.png',
+		name: 'Something',
+		energy: 0,
+		costs: 0,
 		shape: [
 			[1, 1, 1],
 			[1, 1, 1],
@@ -24,6 +28,10 @@ var rooms = [
 	{
 		img: 'img/room/room2_grau.png',
 		enabled: true,
+		icon: 'img/build menu/build_energy.png',
+		name: 'Something',
+		energy: 0,
+		costs: 0,
 		shape: [
 			[1, 1, 1, 1, 1],
 			[1, 1, 1, 1, 1]
@@ -50,6 +58,10 @@ var rooms = [
 	{
 		img: 'img/room/room5_grau.png',
 		enabled: true,
+		icon: 'img/build menu/build_energy.png',
+		name: 'Something',
+		energy: 0,
+		costs: 0,
 		shape: [
 			[1, 1, 1],
 			[1, 1, 0],
@@ -60,6 +72,10 @@ var rooms = [
 	{
 		img: 'img/room/room6_grau.png',
 		enabled: true,
+		icon: 'img/build menu/build_energy.png',
+		name: 'Something',
+		energy: 0,
+		costs: 0,
 		shape: [
 			[1, 1, 1],
 			[1, 1, 1],

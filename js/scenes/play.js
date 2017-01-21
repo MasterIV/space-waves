@@ -19,9 +19,8 @@ define([
 				var grid = new IsoGrid(this.viewport, 64, 32);
 				var map = new Map(grid);
 
-				this.gui = new UIController();
 				this.cursor = new Cursor(grid, map);
-				this.cursor.room = rooms[0];
+				this.gui = new UIController(this);
 
 				map.addRoom(new V2(-1, -1), rooms[0], true);
 				map.add(this.cursor);
