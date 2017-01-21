@@ -7,8 +7,9 @@ define([
 		'transitions/slideinleft',
 		'basic/morph', 'definition/easing',
 		'basic/layout',
-		'core/graphic'
-	], function (Scene, Button, game, V2, SlideInRightTransition, SlideInLeftTransition, Morph, Easing, Layout, g) {
+		'core/graphic',
+		'entity/background'
+	], function (Scene, Button, game, V2, SlideInRightTransition, SlideInLeftTransition, Morph, Easing, Layout, g, Bg) {
 		// g.add('img/main_btn_back.png');
 		// g.add('img/main_btn_back_hover.png');
 		// g.add('img/main_btn_continue.png');
@@ -25,6 +26,8 @@ define([
 		function MenuScene() {
 			Scene.call(this);
 			var self = this;
+
+			this.add(new Bg(this.size));
 
 			var playButton = Button.create(new V2(0, 680), function() {
 				game.scene = require('config/scenes').play;
