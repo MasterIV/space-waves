@@ -7,15 +7,15 @@ define([
 	g.add('img/room/door1.png');
 	g.add('img/room/door2.png');
 
-	function Door(door, grid) {
+	function Door(door, map) {
 		var dir = door.p1.x == door.p2.x;
 		var offset;
 
-		var p1 = grid.getPixels(door.p1);
-		var p2 = grid.getPixels(door.p2);
+		var p1 = map.grid.getPixels(door.p1);
+		var p2 = map.grid.getPixels(door.p2);
 
 		if(dir) {
-			offset = new V2(12, 40);
+			offset = new V2(-5, 20);
 			p1.sub(offset);
 			p2.sub(offset);
 		} else {
@@ -24,7 +24,13 @@ define([
 			p2.add(offset);
 		}
 
-		Entity.call(this, p1.y < p2.y ? p1 : p2);
+		if(p1.y < p2.y) {
+			Entity.call(this, p1 );
+			this.z = map.get(door.p2.x, door.p2.y).z + 1;
+		} else {
+			Entity.call(this, p2 );
+			this.z = map.get(door.p1.x, door.p1.y).z + 1;
+		}
 
 		var img = dir ? 'img/room/door1.png' : 'img/room/door2.png';
 		this.add(new ImageEntity(Zero(), img));

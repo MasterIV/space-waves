@@ -19,24 +19,17 @@ define([
 				var grid = new IsoGrid(this.viewport, 64, 32);
 				var map = new Map(grid);
 
-				map.addRoom(new V2(-1, -1), rooms[0], true);
+				this.gui = new UIController();
 				this.cursor = new Cursor(grid, map);
 				this.cursor.room = rooms[0];
 
+				map.addRoom(new V2(-1, -1), rooms[0], true);
+				map.add(this.cursor);
+				map.add(new Creature(new V2(0, 0), map, 1, units.alien ));
+
 				this.viewport.add(map);
-				this.viewport.add(this.cursor);
-				this.viewport.add(new Creature(new V2(0, 0), map, 1, units.engineer ));
-
-				this.viewport.add(Ship.spawn(map, 1));
-
 				this.add(new Bg(this.size));
 				this.add(this.viewport);
-
-
-
-				// this.room = new Room(Zero(), rooms[10].shape, grid);
-				// this.add(this.room);
-				this.gui = new UIController();
 				this.add(this.gui);
 
 			}

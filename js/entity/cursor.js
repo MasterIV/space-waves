@@ -10,12 +10,18 @@ define(['geo/v2', 'basic/entity', 'core/graphic', 'basic/image', 'core/mouse'],
 
 			this.room = null;
 			this.unit = null;
+			this.z = 0;
+			this.pos = new V2(0,0);
 		}
 
 		Cursor.prototype = new Entity();
 
 		Cursor.prototype.onUpdate = function() {
-			this.position = this.grid.snap(mouse).dif(this.grid.size);
+			this.pos = this.grid.getIso(mouse);
+			this.position = this.grid.getPixels(this.pos).dif(this.grid.size);
+
+			var room = this.map.get(this.pos.x, this.pos.y);
+			this.z = room ? room.z + 2 : -1e20;
 		};
 
 		Cursor.prototype.onClick = function() {

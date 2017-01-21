@@ -1,4 +1,6 @@
 define(['basic/entity', 'geo/v2', 'geo/rect', 'basic/morph'], function(Entity, V2, Rect, Morph) {
+	var tolerance = 3;
+
 	function ViewPort(updateHidden) {
 		Entity.call(this);
 		this.updateHidden = updateHidden;
@@ -57,7 +59,7 @@ define(['basic/entity', 'geo/v2', 'geo/rect', 'basic/morph'], function(Entity, V
 	ViewPort.prototype.onMouseUp = function(pos) {
 		if(this.drag) {
 			var dif = this.dragStart ? this.dragStart.dif(this.position) : new V2(0,0);
-			this.preventClick = Math.abs(dif.x) > 1 || Math.abs(dif.y) > 1;
+			this.preventClick = Math.abs(dif.x) > tolerance - 1 || Math.abs(dif.y) > tolerance - 1;
 
 			this.dragging = null;
 			this.dragStart = null;
@@ -78,7 +80,7 @@ define(['basic/entity', 'geo/v2', 'geo/rect', 'basic/morph'], function(Entity, V
 		var dif = this.dragStart ? this.dragStart.dif(this.position) : new V2(0,0);
 		if(this.preventClick)
 			return this.preventClick = false;
-		if (this.dragging == null || (Math.abs(dif.x) < 2 && Math.abs(dif.y) < 2))
+		if (this.dragging == null || (Math.abs(dif.x) < tolerance && Math.abs(dif.y) < tolerance))
 			Entity.prototype.click.call(this, pos);
 	};
 

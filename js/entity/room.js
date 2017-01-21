@@ -17,6 +17,7 @@ define([
 		this.img = g[type.img];
 		this.pos = pos;
 		this.shape = type.shape;
+		this.z = this.position.y;
 	}
 
 	Room.prototype = new Entity();
@@ -48,6 +49,7 @@ define([
 		return this.shape[x][y];
 	};
 
+	Room.prototype.click = null;
 
 	return Room;
 });

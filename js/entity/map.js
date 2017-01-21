@@ -18,6 +18,12 @@ define([
 
 	Map.prototype = new Entity();
 
+	Map.prototype.onUpdate = function (delta) {
+		this.entities.sort(function(a,b) {
+			return a.z - b.z;
+		});
+	};
+
 	Map.prototype.addRoom = function(pos, type, force) {
 		var room = new Room(pos, this.grid, type);
 		var possible = true;
@@ -63,7 +69,7 @@ define([
 		for(var i in doors) {
 			this.addDoor(doors[i], doors[i].p1);
 			this.addDoor(doors[i], doors[i].p2);
-			this.add(new Door(doors[i], this.grid));
+			this.add(new Door(doors[i], this));
 		}
 
 		return true;
@@ -107,8 +113,14 @@ define([
 		if (this.map[x]) return this.map[x][y];
 	};
 
+	//Map.prototype.addCreature
+
 	Map.prototype.unit = function (pos) {
 		return false;
+	};
+
+	Map.prototype.inside = function () {
+		return true;
 	};
 
 

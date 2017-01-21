@@ -15,11 +15,11 @@ define([
 	function Creature(pos, map, level, type) {
 		Entity.call(this, map.grid.getPixels(pos), new V2(128, 160));
 
-		this.pos = pos;
 		this.type = type;
 		this.grid = map.grid;
 		this.map = map;
 		this.level = level;
+		this.setPos(pos);
 
 		this.animations = {
 			walk: new Animation(type.img, new V2(-64, -118), new V2(4, 4), 200, true),
@@ -39,6 +39,13 @@ define([
 
 	};
 
+	Creature.prototype.setPos = function(pos) {
+		var room = this.map.get(pos.x, pos.y);
+		var rel = pos.dif(room.pos);
+		this.pos = pos;
+		this.z = room.z + rel.x + rel.y + 3;
+	};
+
 
 	Creature.prototype.setState = function(state) {
 		if(!this.animations[state]) return;
@@ -54,16 +61,17 @@ define([
 			this.setState('walk');
 			this.moving = true;
 
-			if(this.current.x > next.x)
+			if(this.pos.x > next.x)
 				this.img.state = 0;
-			else if(this.current.x < next.x)
+			else if(this.pos.x < next.x)
 				this.img.state = 2;
-			else if(this.current.y < next.y)
+			else if(this.pos.y < next.y)
 				this.img.state = 1;
 			else
 				this.img.state = 3;
 
-			this.current = next;
+			this.setPos( next );
+
 			this.add(new Morph({
 				position: this.grid.getPixels(next)
 			}, speed, null, function() {
@@ -78,11 +86,7 @@ define([
 		this.path = path;
 	};
 
-	Creature.prototype.onClick = function () {
-		if(this.type.enemy) return false;
-		//this.map.selectUnit(this);
-		return true;
-	};
+	Creature.prototype.click = null;
 
 	return Creature;
 });
