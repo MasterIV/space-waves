@@ -1,6 +1,7 @@
 body {
 	margin: 0;
 	padding: 0;
+	background: #111;
 }
 
 #gameframe {
@@ -19,10 +20,11 @@ body {
 	width: 300px;
 	margin-left: -150px;
 	margin-top: -150px;
-	background: white;
-	border: 1px solid #333;
-	border-radius: 5px;
+	border: 1px solid aqua;
+	border-radius: 10px;
 	font-family: sans-serif;
 	font-weight: bold;
 	font-size: 14px;
+	color: aqua;
+	background: black;
 }
