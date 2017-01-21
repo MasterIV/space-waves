@@ -42,8 +42,9 @@ define(['basic/entity', 'geo/v2', 'geo/rect', 'basic/morph'], function(Entity, V
 		this.add(new Morph({position: pos}, speed, null, callback));
 	};
 
-	ViewPort.prototype.dragable = function(status) {
+	ViewPort.prototype.dragable = function(status, endless) {
 		this.drag = status;
+		this.endless = endless;
 	};
 
 	ViewPort.prototype.onMouseDown = function(pos) {
@@ -61,14 +62,23 @@ define(['basic/entity', 'geo/v2', 'geo/rect', 'basic/morph'], function(Entity, V
 	};
 
 	ViewPort.prototype.setPosition = function(x, y) {
-		this.position.x = Math.max(Math.min(0, x), this.visible.x-this.size.x );
-		this.position.y = Math.max(Math.min(0, y), this.visible.y-this.size.y );
+		if(this.endless) {
+			this.position.x = x;
+			this.position.y = y;
+		} else {
+			this.position.x = Math.max(Math.min(0, x), this.visible.x-this.size.x );
+			this.position.y = Math.max(Math.min(0, y), this.visible.y-this.size.y );
+		}
 	};
 
 	ViewPort.prototype.click = function(pos) {
 		var dif = this.dragStart ? this.dragStart.dif(this.position) : new V2(0,0);
 		if (this.dragging == null || (Math.abs(dif.x) < 2 && Math.abs(dif.y) < 2))
 			Entity.prototype.click.call(this, pos);
+	};
+
+	ViewPort.prototype.inside = function(pos) {
+		return true;
 	};
 
 	ViewPort.prototype.update = function(delta) {

@@ -11,9 +11,13 @@ define([
 			function PlayScene() {
 				Scene.call(this);
 				this.viewport = new Viewport();
+				this.viewport.position = this.size.quo(2);
+				this.viewport.dragable(true, true);
 				var grid = new IsoGrid(this.viewport, 64, 32);
 
-				this.viewport.add(new Cursor(grid, {at: function() {return true;}}, function() {}));
+				this.viewport.add(new Room(Zero(), 'main'));
+				this.viewport.add(new Cursor(grid, {at: function() {return true;}}, function(p) {console.log(p)}));
+
 
 				this.add(new Bg(this.size));
 				this.add(this.viewport);

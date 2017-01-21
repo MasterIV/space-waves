@@ -94,7 +94,7 @@ define(['geo/v2', 'geo/rect', 'core/mouse'], function(V2, Rect, mouse) {
 	};
 
 	Entity.prototype.hover = function () {
-		return this.getArea().inside(this.relativeMouse());
+		return this.inside(this.relativeMouse());
 	};
 
 	Entity.prototype.draw = function (ctx) {
@@ -110,9 +110,13 @@ define(['geo/v2', 'geo/rect', 'core/mouse'], function(V2, Rect, mouse) {
 		ctx.restore();
 	};
 
+	Entity.prototype.inside = function(pos) {
+		return this.getArea().inside(pos);
+	};
+
 	Entity.prototype.click = function (pos) {
 		pos = pos.dif(this.position);
-		if (!this.getArea().inside(pos)) return;
+		if (!this.inside(pos)) return;
 		if (this.onClick && this.onClick(pos)) return true;
 
 		if (this.blocking.length) {
@@ -124,7 +128,7 @@ define(['geo/v2', 'geo/rect', 'core/mouse'], function(V2, Rect, mouse) {
 
 	Entity.prototype.mousedown = function (pos) {
 		pos = pos.dif(this.position);
-		if (!this.getArea().inside(pos)) return;
+		if (!this.inside(pos)) return;
 		if (this.onMouseDown && this.onMouseDown(pos)) return true;
 
 		if (this.blocking.length) {
@@ -136,7 +140,7 @@ define(['geo/v2', 'geo/rect', 'core/mouse'], function(V2, Rect, mouse) {
 
 	Entity.prototype.mouseup = function (pos) {
 		pos = pos.dif(this.position);
-		if (!this.getArea().inside(pos)) return;
+		if (!this.inside(pos)) return;
 		if (this.onMouseUp && this.onMouseUp(pos)) return true;
 
 		if (this.blocking.length) {
