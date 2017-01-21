@@ -3,7 +3,7 @@ define(['core/graphic', 'geo/v2', 'basic/entity'],
 		var tiles = [
 			'img/bg_kachel_1.png',
 			'img/bg_kachel_2.png',
-			'img/bg_kachel3.png'
+			'img/bg_kachel_3.png'
 		];
 
 		for(var i in tiles) g.add(tiles[i]);
