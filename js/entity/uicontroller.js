@@ -80,6 +80,7 @@ define(['geo/v2', 'basic/entity', 'config/screen', 'entity/uibutton', 'entity/ui
         };
 
         UIController.prototype.ToggleMenu = function () {
+            require('config/scenes').menu.gamePaused();
             game.scene = require('config/scenes').menu;
         };
 

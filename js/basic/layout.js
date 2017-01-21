@@ -14,9 +14,9 @@ define(['basic/entity'],
 					this.size[axis] = entity.size[axis] + 2*this.margin;
 			};
 
-			Layout.prototype.adjustFlexible = function(axis, entity) {
+			Layout.prototype.adjustFlexible = function(axis, entity, first) {
 				var p = this.margin + this.entities.length * this.spacing;
-				for(var i in this.entities ) p += this.entities[i].size[axis] || 0;
+				if (!first) for(var i in this.entities ) p += this.entities[i].size[axis] || 0;
 				entity.position[axis] = p;
 				this.size[axis] = entity.position[axis] + entity.size[axis] + this.margin;
 			};
@@ -46,6 +46,12 @@ define(['basic/entity'],
 			VerticalLayout.prototype.add = function(e) {
 				this.adjustFixed('x', e);
 				this.adjustFlexible('y', e);
+				Entity.prototype.add.call(this, e);
+			};
+
+			VerticalLayout.prototype.addfirst = function(e) {
+				this.adjustFixed('x', e);
+				this.adjustFlexible('y', e, true);
 				Entity.prototype.add.call(this, e);
 			};
 

@@ -1,2 +1,5 @@
 game_button_positive.ogg, game_button_negative.ogg, game_button_error.ogg - CC-BY 3.0
     by xDimebagx (http://freesound.org/people/xDimebagx/sounds/331305/)
+
+pause_music.mp3 - CC0
+    by wikbeats (http://freesound.org/people/wikbeats/sounds/211869/)
