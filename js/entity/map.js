@@ -11,6 +11,9 @@ define([
 		this.grid = grid;
 		this.map = {};
 		this.doors = {};
+
+		this.min = new V2(0,0);
+		this.max = new V2(0,0);
 	}
 
 	Map.prototype = new Entity();
@@ -44,19 +47,23 @@ define([
 			}
 		});
 
-		console.log(possible, doors);
 		if(!force && (!possible || doors.length < 1)) return false;
 
 		room.eachRel(function(x, y) {
 			if(!self.map[x]) self.map[x] = {};
 			self.map[x][y] = room;
+
+			if(x < self.min.x) self.min.x = x;
+			if(y < self.min.y) self.min.y = y;
+			if(x > self.max.x) self.max.x = x;
+			if(y > self.max.y) self.max.y = y;
 		});
 
 		this.add(room);
 		for(var i in doors) {
 			this.addDoor(doors[i], doors[i].p1);
 			this.addDoor(doors[i], doors[i].p2);
-			this.add(new Door(doors[i]));
+			this.add(new Door(doors[i], this.grid));
 		}
 
 		return true;
