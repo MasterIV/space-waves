@@ -1,8 +1,10 @@
-define(['lib/scene', 'geo/v2', 'lib/isogrid', 'entity/room'],
-		function(Scene, V2, IsoGrid, Room ) {
+define(['lib/scene', 'geo/v2', 'entity/uicontroller', 'lib/isogrid', 'entity/room'],
+		function(Scene, V2, UIController, IsoGrid, Room ) {
 			function PlayScene() {
 				Scene.call(this);
 
+				this.gui = new UIController();
+				this.add(this.gui);
 
 				var shapes = [
 					[
