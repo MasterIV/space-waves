@@ -19,9 +19,11 @@ define([
 				var map = new Map(grid);
 
 				map.addRoom(new V2(-1, -1), rooms[0], true);
+				this.cursor = new Cursor(grid, map);
+				this.cursor.room = rooms[0];
 
 				this.viewport.add(map);
-				this.viewport.add(new Cursor(grid, {at: function() {return true;}}, function(p) {console.log(p)}));
+				this.viewport.add(this.cursor);
 				this.viewport.add(new Creature(new V2(0, 0), map, 1, units.alien ));
 
 

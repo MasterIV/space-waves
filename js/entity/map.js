@@ -27,7 +27,7 @@ define([
 			var dest = self.get(d.x, d.y);
 
 			if (!dest || dest.get(d.x, d.y) > 1) return;
-			if (neighbours.indexOf(dest) == -1) return;
+			if (neighbours.indexOf(dest) != -1) return;
 
 			neighbours.push(dest);
 			doors.push({ p1: s, p2: d, r1: room, r2: dest });
@@ -44,7 +44,8 @@ define([
 			}
 		});
 
-		if(!force && (!possible || doors.length < 1)) return;
+		console.log(possible, doors);
+		if(!force && (!possible || doors.length < 1)) return false;
 
 		room.eachRel(function(x, y) {
 			if(!self.map[x]) self.map[x] = {};
@@ -57,6 +58,8 @@ define([
 			this.addDoor(doors[i], doors[i].p2);
 			this.add(new Door(doors[i]));
 		}
+
+		return true;
 	};
 
 	Map.prototype.addDoor = function(door, pos) {
@@ -95,6 +98,10 @@ define([
 
 	Map.prototype.get = function (x, y) {
 		if (this.map[x]) return this.map[x][y];
+	};
+
+	Map.prototype.unit = function (pos) {
+		return false;
 	};
 
 

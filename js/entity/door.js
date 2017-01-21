@@ -3,6 +3,9 @@ define([
 	'core/graphic',
 	'basic/entity'
 ], function (V2, g, Entity) {
+	//g.add();
+
+
 	function Door(door) {
 		Entity.call(this);
 

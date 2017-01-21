@@ -4,8 +4,9 @@ define([
 	'basic/entity',
 	'basic/rect'
 ], function (V2, g, Entity, RectEntity) {
-	for(var i in rooms) if(i == 0)
-		g.add(rooms[i].img);
+	for(var i in rooms)
+		if(rooms[i].enabled)
+			g.add(rooms[i].img);
 
 	function Room(pos, grid, type) {
 		var size = new V2(type.shape.length, type.shape[0].length);
@@ -16,10 +17,6 @@ define([
 		this.img = g[type.img];
 		this.pos = pos;
 		this.shape = type.shape;
-
-		this.lookup = {};
-		this.neighbours = [];
-		this.doors = [];
 	}
 
 	Room.prototype = new Entity();
@@ -41,7 +38,7 @@ define([
 		});
 	};
 
-	Map.prototype.get = function (x, y) {
+	Room.prototype.get = function (x, y) {
 		x -= this.pos.x;
 		y -= this.pos.y;
 
