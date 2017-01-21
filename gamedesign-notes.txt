@@ -1,4 +1,4 @@
-Einheiten
+﻿Einheiten
     Eningeer
     Security
     Scince
@@ -12,12 +12,12 @@ Angrifsschiffe
     Jäger
 
 Rooms
-    Energy
-    Recovery / Quaters
-    Medbay
-    Weapons
-    Labs
-    Training
+    Energy (room2)
+    Recovery / Quaters (room6)
+    Medbay (room1)
+    Weapons (room0)
+    Labs (room5)
+    Training (room6)
     
     Optional:
         Life Support?
