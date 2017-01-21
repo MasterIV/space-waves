@@ -26,6 +26,14 @@ define([
 				map.add(this.cursor);
 				map.add(new Creature(new V2(0, 0), map, 1, units.alien ));
 
+				this.viewport.add(Ship.spawn(map, 1, 30));
+				this.viewport.add(Ship.spawn(map, 1, 30));
+				this.viewport.add(Ship.spawn(map, 1, 30));
+				this.viewport.add(Ship.spawn(map, 1, 30));
+				this.viewport.add(Ship.spawn(map, 1, 30));
+				this.viewport.add(Ship.spawn(map, 1, 30));
+
+
 				this.viewport.add(map);
 				this.add(new Bg(this.size));
 				this.add(this.viewport);

@@ -115,6 +115,10 @@ define([
 
 	//Map.prototype.addCreature
 
+	Map.prototype.spawnEnemy = function (pos, level) {
+
+	};
+
 	Map.prototype.unit = function (pos) {
 		return false;
 	};
