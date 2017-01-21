@@ -2,6 +2,7 @@ var rooms = [
 	{
 		img: 'img/room/commando_room.png',
 		anim: 'img/room/commando_animation.png',
+		animOffset: { x: 67, y: 24 },
 		offset: { x: 223, y: 353 },
 		name: 'Command Central',
 		energy: 0,

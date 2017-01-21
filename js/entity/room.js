@@ -2,11 +2,16 @@ define([
 	'geo/v2',
 	'core/graphic',
 	'basic/entity',
-	'basic/rect'
-], function (V2, g, Entity, RectEntity) {
-	for(var i in rooms)
-		if(rooms[i].enabled)
-			g.add(rooms[i].img);
+	'basic/rect',
+	'lib/animation'
+], function (V2, g, Entity, RectEntity, Animation) {
+	for(var i in rooms) {
+		if(rooms[i].enabled) {
+				g.add(rooms[i].img);
+				if (rooms[i].anim)
+					g.add(rooms[i].anim);
+			}
+		}
 
 	function Room(pos, grid, type) {
 		//var size = new V2(type.shape.length, type.shape[0].length);
@@ -18,6 +23,10 @@ define([
 		this.pos = pos;
 		this.shape = type.shape;
 		this.z = this.position.y;
+
+		if (type.anim) {
+			this.add(new Animation(type.anim, Zero().add(type.offset).dif(type.animOffset), 8, 150, true));
+		}
 	}
 
 	Room.prototype = new Entity();
