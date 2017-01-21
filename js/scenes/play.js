@@ -3,7 +3,7 @@ define(['lib/scene', 'geo/v2', 'entity/uicontroller', 'lib/isogrid', 'entity/roo
 			function PlayScene() {
 				Scene.call(this);
 
-				this.gui = new UIController();
+				this.gui = new UIController(this);
 				this.add(this.gui);
 
 				var grid = new IsoGrid(this, 64, 32);
@@ -20,6 +20,10 @@ define(['lib/scene', 'geo/v2', 'entity/uicontroller', 'lib/isogrid', 'entity/roo
 			// 	this.display.width = this.room.size.x;
 			// 	this.display.height = this.room.size.y;
 			// };
+
+			PlayScene.prototype.Pause = function () {
+				
+			};
 
 			return PlayScene;
 		}
