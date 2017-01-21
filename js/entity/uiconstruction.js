@@ -25,6 +25,19 @@ define([
 		this.add(new ImageEntity(Zero(), 'img/build menu/build_UI.png'));
 		this.add(new ImageEntity(new V2(3, 30), room.icon));
 		this.add(new TextEntity(new V2(90, 15), room.name, fonts.roomTitle));
+
+		var img = g[room.img];
+		var scale = Math.min(120/img.width, 120/img.height);
+		var pos = new V2(280 - img.width*scale*.5, 98 - img.height*scale*.5 )
+		this.add(new ImageEntity(pos, room.img, scale));
+
+		this.costs = new TextEntity(new V2(34, 117), room.costs, fonts.roomTitle);
+		this.add(this.costs);
+		this.add(new TextEntity(new V2(34, 146), room.energy, fonts.roomTitle));
+
+		// TODO description
+
+
 		this.inheritSize();
 		this.room = room;
 		this.cursor = cursor;
