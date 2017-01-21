@@ -8,22 +8,26 @@ define([
 		'basic/morph', 'definition/easing',
 		'basic/layout',
 		'core/graphic',
-		'entity/background'
-	], function (Scene, Button, game, V2, SlideInRightTransition, SlideInLeftTransition, Morph, Easing, Layout, g, Bg) {
+		'entity/background',
+		'entity/volumemeter'
+	], function (Scene, Button, game, V2, SlideInRightTransition, SlideInLeftTransition, Morph, Easing, Layout, g, Bg, VolumeMeter) {
 		// g.add('img/main_btn_back.png');
 		// g.add('img/main_btn_back_hover.png');
 		// g.add('img/main_btn_continue.png');
 		// g.add('img/main_btn_continue_hover.png');
 
-		g.add('img/main_btn_credits.png');
-		g.add('img/main_btn_credits_hover.png');
-		g.add('img/main_btn_start.png');
-		g.add('img/main_btn_start_hover.png');
-		g.add('img/main_btn_continue.png');
-		g.add('img/main_btn_continue_hover.png');
-		g.add('img/main_btn_help.png');
-		g.add('img/main_btn_help_hover.png');
-		g.add('img/full_screen_button.png');
+		g.add('img/gui/main_btn_credits.png');
+		g.add('img/gui/main_btn_credits_hover.png');
+		g.add('img/gui/main_btn_start.png');
+		g.add('img/gui/main_btn_start_hover.png');
+		g.add('img/gui/main_btn_continue.png');
+		g.add('img/gui/main_btn_continue_hover.png');
+		g.add('img/gui/main_btn_restart.png');
+		g.add('img/gui/main_btn_restart_hover.png');
+		g.add('img/gui/main_btn_help.png');
+		g.add('img/gui/main_btn_help_hover.png');
+		g.add('img/gui/full_screen_button.png');
+		g.add('img/gui/opt_screen_button.png');
 
 		function MenuScene() {
 			Scene.call(this);
@@ -35,7 +39,7 @@ define([
 				document.getElementById('game_music').play();
 
 				game.scene = require('config/scenes').play;
-			}).img('img/main_btn_start.png').highlight('img/main_btn_start_hover.png');
+			}).img('img/gui/main_btn_start.png').highlight('img/gui/main_btn_start_hover.png');
 
 			this.continueButton = Button.create(new V2(0, 680), function() {
 				self.vLayout.addfirst(self.playButton);
@@ -46,15 +50,21 @@ define([
 				document.getElementById('game_music').play();
 
 				game.scene = require('config/scenes').play;
-			}).img('img/main_btn_continue.png').highlight('img/main_btn_continue_hover.png');
+			}).img('img/gui/main_btn_continue.png').highlight('img/gui/main_btn_continue_hover.png');
+
+			this.restartButton = Button.create(new V2(0, 680), function() {
+				self.vLayout.remove(self.restartButton);
+
+				game.scene = require('config/scenes').play;
+			}).img('img/gui/main_btn_restart.png').highlight('img/gui/main_btn_restart_hover.png');
 
 			var creditsButton = Button.create(new V2(0, 680), function() {
 				game.scene = new SlideInRightTransition(require('config/scenes').credits, 1000, Easing.OUTQUAD);
-			}).img('img/main_btn_credits.png').highlight('img/main_btn_credits_hover.png');
+			}).img('img/gui/main_btn_credits.png').highlight('img/gui/main_btn_credits_hover.png');
 
 			var helpButton = Button.create(new V2(0, 680), function() {
 				game.scene = new SlideInLeftTransition(require('config/scenes').help, 1000, Easing.OUTQUAD);
-			}).img('img/main_btn_help.png').highlight('img/main_btn_help_hover.png');
+			}).img('img/gui/main_btn_help.png').highlight('img/gui/main_btn_help_hover.png');
 
 			//this.bg = 'img/main_bg.jpg';
 
@@ -66,7 +76,18 @@ define([
 
 			this.add(Button.create(new V2(1160, 20), function() {
 				self.toggleFullScreen();
-			}).img('img/full_screen_button.png'));
+			}).img('img/gui/full_screen_button.png'));
+
+			this.add(Button.create(new V2(1160, 607), function() {
+				self.toggleOptions();
+			}).img('img/gui/opt_screen_button.png'));
+
+			var sound_vol = new VolumeMeter(Zero(), "sounds");
+			var music_vol = new VolumeMeter(Zero(), "music");
+			this.optionsLayout = new Layout.vertical(new V2(0, 280), 0, 0);
+			this.optionsLayout.add(sound_vol);
+			this.optionsLayout.add(music_vol);
+			this.options = false;
 		}
 
 		MenuScene.prototype = new Scene();
@@ -96,9 +117,23 @@ define([
 			}
 		};
 
+		MenuScene.prototype.toggleOptions = function () {
+			if (this.options) {
+				this.center(this.vLayout);
+				this.remove(this.optionsLayout);
+				this.options = false;
+			} else {
+				this.center(this.optionsLayout);
+				this.remove(this.vLayout);
+				this.options = true;
+			}
+		};
+
 		MenuScene.prototype.gamePaused = function () {
 			this.vLayout.addfirst(this.continueButton);
 			this.vLayout.remove(this.playButton);
+
+			this.vLayout.add(this.restartButton);
 
 			document.getElementById('game_music').pause();
 			document.getElementById('pause_music').play();
