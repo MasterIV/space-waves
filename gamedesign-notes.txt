@@ -1,0 +1,37 @@
+Einheiten
+    Eningeer
+    Security
+    Scince
+
+    Level
+    Health
+    Energy
+
+Angrifsschiffe
+    Enterfähren
+    Jäger
+
+Rooms
+    Energy
+    Recovery / Quaters
+    Medbay
+    Weapons
+    Labs
+    Training
+    
+    Optional:
+        Life Support?
+        Teleporter?
+        Booster?
+        Verschiedene Waffen?
+        
+        
+Dekoration
+    Energy:
+        Generator (1Tile)
+        Energieleitungen
+    Recovery / Quaters:
+        Hochbett (2 Tiles)
+        Nahrungsreplikator in Wand
+        Teppich?
+        
