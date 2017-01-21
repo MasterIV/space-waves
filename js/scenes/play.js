@@ -22,7 +22,8 @@ define([
 				this.gui = new UIController(this);
 
 				map.addRoom(new V2(-1, -1), rooms[0], true);
-				map.addCreature(units.engineer, new V2(0, 0), 1);
+				map.addRoom(new V2(2, -1), rooms[1], true);
+				map.addCreature(units.engineer, new V2(2, 0), 1);
 				map.add(this.cursor);
 
 				// this.viewport.add(Ship.spawn(map, 1, 30));

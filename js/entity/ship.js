@@ -46,25 +46,25 @@ define([
 		switch (ship_dir) {
 			case 0:
 				var biggest_y = map.max.y + distance;
-				var random_x = Math.round((map.max.x - map.min.x) * Math.random());
+				var random_x = Math.floor((map.max.x - map.min.x) * Math.random());
 				ship_pos.x = random_x;
 				ship_pos.y = biggest_y;
 				break;
 			case 1:
 				var biggest_x = map.max.x + distance;
-				var random_y = Math.round((map.max.y - map.min.y) * Math.random());
+				var random_y = Math.floor((map.max.y - map.min.y) * Math.random());
 				ship_pos.x = biggest_x;
 				ship_pos.y = random_y;
 				break;
 			case 2:
 				var smallest_y = map.min.y - distance;
-				var random_x = Math.round((map.max.x - map.min.x) * Math.random());
+				var random_x = Math.floor((map.max.x - map.min.x) * Math.random());
 				ship_pos.x = random_x;
 				ship_pos.y = smallest_y;
 				break;
 			case 3:
 				var smallest_x = map.min.x - distance;
-				var random_y = Math.round((map.max.y - map.min.y) * Math.random());
+				var random_y = Math.floor((map.max.y - map.min.y) * Math.random());
 				ship_pos.x = smallest_x;
 				ship_pos.y = random_y;
 				break;

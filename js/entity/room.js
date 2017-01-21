@@ -9,11 +9,11 @@ define([
 			g.add(rooms[i].img);
 
 	function Room(pos, grid, type) {
-		var size = new V2(type.shape.length, type.shape[0].length);
-		var offset = new V2(size.x * grid.size.x+1 - grid.size.y, grid.size.y*10 );
-		offset.add(grid.size);
+		//var size = new V2(type.shape.length, type.shape[0].length);
+		//var offset = new V2(size.x * (grid.size.x+1) - grid.size.y, grid.size.y*10 );
+		//offset.add(grid.size);
 
-		Entity.call(this, grid.getPixels(pos).dif(offset));
+		Entity.call(this, grid.getPixels(pos).dif(type.offset));
 		this.img = g[type.img];
 		this.pos = pos;
 		this.shape = type.shape;
@@ -29,13 +29,13 @@ define([
 	Room.prototype.each = function(callback) {
 		for(var x = 0; x < this.shape.length; x++)
 			for(var y = 0; y < this.shape[0].length; y++)
-				if(this.shape[y][x])
-					callback.call(this, x, y, this.shape[y][x]);
+				if(this.shape[x][y])
+					callback.call(this, x, y, this.shape[x][y]);
 	};
 
 	Room.prototype.eachRel = function(callback) {
 		this.each(function(x, y) {
-			callback.call(this, x+this.pos.x, y+this.pos.y, this.shape[y][x]);
+			callback.call(this, x+this.pos.x, y+this.pos.y, this.shape[x][y]);
 		});
 	};
 

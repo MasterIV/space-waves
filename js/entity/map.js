@@ -47,7 +47,7 @@ define([
 		room.eachRel(function(x, y) {
 			if(self.map[x] && self.map[x][y])
 				possible = false;
-			else {
+			else if (room.get(x, y) == 1) {
 				checkForDoor(new V2(x, y), new V2(x+1, y));
 				checkForDoor(new V2(x, y), new V2(x-1, y));
 				checkForDoor(new V2(x, y), new V2(x, y+1));
