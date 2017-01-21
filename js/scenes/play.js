@@ -1,16 +1,29 @@
-define(['lib/scene', 'geo/v2', 'entity/uicontroller', 'lib/isogrid', 'entity/room'],
-		function(Scene, V2, UIController, IsoGrid, Room ) {
+define([
+		'lib/scene',
+		'geo/v2',
+		'entity/uicontroller',
+		'lib/isogrid',
+		'entity/room',
+		'lib/viewport',
+		'entity/background',
+		'entity/cursor'
+	], function (Scene, V2, UIController, IsoGrid, Room, Viewport, Bg, Cursor) {
 			function PlayScene() {
 				Scene.call(this);
+				this.viewport = new Viewport();
+				var grid = new IsoGrid(this.viewport, 64, 32);
 
-				this.gui = new UIController(this);
-				this.add(this.gui);
+				this.viewport.add(new Cursor(grid, {at: function() {return true;}}, function() {}));
 
-				var grid = new IsoGrid(this, 64, 32);
+				this.add(new Bg(this.size));
+				this.add(this.viewport);
 
 
 				// this.room = new Room(Zero(), rooms[10].shape, grid);
 				// this.add(this.room);
+				this.gui = new UIController();
+				this.add(this.gui);
+
 			}
 
 			PlayScene.prototype = new Scene();
@@ -22,7 +35,7 @@ define(['lib/scene', 'geo/v2', 'entity/uicontroller', 'lib/isogrid', 'entity/roo
 			// };
 
 			PlayScene.prototype.Pause = function () {
-				
+
 			};
 
 			return PlayScene;

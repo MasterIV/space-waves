@@ -14,7 +14,7 @@ define(['geo/v2', 'basic/entity', 'core/graphic', 'basic/image', 'core/mouse'],
 
 		Cursor.prototype.onUpdate = function() {
 			if(this.room.at(this.grid.getIso(mouse)))
-				this.position = this.grid.snap(mouse).dif(this.grid.size());
+				this.position = this.grid.snap(mouse).dif(this.grid.size);
 		};
 
 		Cursor.prototype.onClick = function() {
