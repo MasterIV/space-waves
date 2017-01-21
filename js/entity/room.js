@@ -4,11 +4,8 @@ define([
 	'basic/entity',
 	'basic/rect'
 ], function (V2, g, Entity, RectEntity) {
-	g.add('img/room/room0_grau.png');
-	g.add('img/room/room1_grau.png');
-	g.add('img/room/room2_grau.png');
-	g.add('img/room/room5_grau.png');
-	g.add('img/room/room6_grau.png');
+	for(var i in rooms) if(i == 0)
+		g.add(rooms[i].img);
 
 	function Room(pos, grid, type) {
 		var size = new V2(type.shape.length, type.shape[0].length);
@@ -16,6 +13,7 @@ define([
 		offset.add(grid.size);
 
 		Entity.call(this, grid.getPixels(pos).dif(offset));
+		this.img = g[type.img];
 		this.pos = pos;
 
 	}
@@ -23,7 +21,7 @@ define([
 	Room.prototype = new Entity();
 
 	Room.prototype.onDraw = function (ctx) {
-		ctx.drawImage(g['img/room/room0_grau.png'], 0, 0);
+		ctx.drawImage(this.img, 0, 0);
 	};
 
 	return Room;
