@@ -76,7 +76,7 @@ var rooms = [
 		img: 'img/room/room6_grau.png',
 		enabled: true,
 		icon: 'img/build menu/build_energy.png',
-		name: 'Something',
+		name: 'Living Quarters',
 		energy: 0,
 		costs: 0,
 		shape: [
