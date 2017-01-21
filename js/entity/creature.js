@@ -5,12 +5,14 @@ define([
 	'lib/animation',
 	'geo/v2',
 	'basic/image',
-	'core/sound'
-], function (Entity, config, g, Animation, V2, Image, sound) {
+	'core/sound',
+	'basic/morph'
+], function (Entity, config, g, Animation, V2, Image, sound, Morph) {
 	var speed = 500;
 
 	for(var i in units)
 		g.add(units[i].img);
+	g.add('img/char_selection.png');
 
 	function Creature(pos, map, level, type) {
 		Entity.call(this, map.grid.getPixels(pos), new V2(128, 160));
@@ -21,10 +23,12 @@ define([
 		this.level = level;
 		this.setPos(pos);
 
+		this.selected = false;
+		this.cursor = new Animation('img/char_selection.png', new V2(-64, -118), 4, 200, true);
 		this.animations = {
 			walk: new Animation(type.img, new V2(-64, -118), new V2(4, 4), 200, true),
 			idle: new Animation(type.img, new V2(-64, -118), new V2(4, 4), 200, true),
-			fight: new Animation(type.img, new V2(-64, -118), new V2(4, 4), 200, true)
+			fight: new Animation(type.img, new V2(-64, -118), new V2(4, 4), 200, true),
 		};
 
 		this.setState('idle');
@@ -35,8 +39,16 @@ define([
 
 	Creature.prototype = new Entity();
 
-	Creature.prototype.onDraw = function(ctx) {
+	Creature.prototype.select = function() {
+		if(this.selected) return;
+		this.addfirst(this.cursor);
+		this.selected = true;
+	};
 
+	Creature.prototype.unselect = function() {
+		if(!this.selected) return;
+		this.remove(this.cursor);
+		this.selected = false;
 	};
 
 	Creature.prototype.setPos = function(pos) {
@@ -50,8 +62,13 @@ define([
 	Creature.prototype.setState = function(state) {
 		if(!this.animations[state]) return;
 		this.img = this.animations[state];
-		this.entities = [this.img];
+		this.entities = this.selected ? [this.cursor, this.img] : [this.img];
 	};
+
+	Creature.prototype.setDirection = function(d) {
+		for(var i in this.animations)
+			this.animations[i].state = d;
+	}
 
 	Creature.prototype.onUpdate = function(delta) {
 		if(!this.moving && this.path.length) {
@@ -62,13 +79,13 @@ define([
 			this.moving = true;
 
 			if(this.pos.x > next.x)
-				this.img.state = 0;
+				this.setDirection(0);
 			else if(this.pos.x < next.x)
-				this.img.state = 2;
+				this.setDirection(2);
 			else if(this.pos.y < next.y)
-				this.img.state = 1;
+				this.setDirection(1);
 			else
-				this.img.state = 3;
+				this.setDirection(3);
 
 			this.setPos( next );
 

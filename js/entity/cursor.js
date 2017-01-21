@@ -1,5 +1,5 @@
-define(['geo/v2', 'basic/entity', 'core/graphic', 'basic/image', 'core/mouse'],
-	function (V2, Entity, g, ImageEntity, mouse) {
+define(['geo/v2', 'basic/entity', 'core/graphic', 'basic/image', 'core/mouse', 'lib/pathfinder'],
+	function (V2, Entity, g, ImageEntity, mouse, Pathfinder) {
 		g.add('img/room/tile_hover.png');
 
 		function Cursor(grid, map) {
@@ -10,6 +10,7 @@ define(['geo/v2', 'basic/entity', 'core/graphic', 'basic/image', 'core/mouse'],
 
 			this.room = null;
 			this.unit = null;
+			this.pathfinder = new Pathfinder(map);
 			this.z = 0;
 			this.pos = new V2(0,0);
 		}
@@ -28,12 +29,18 @@ define(['geo/v2', 'basic/entity', 'core/graphic', 'basic/image', 'core/mouse'],
 			var to = this.grid.getIso(mouse);
 			var unit;
 
-			if(this.room && this.map.addRoom(to, this.room, false))
+			if(this.room && this.map.addRoom(to, this.room, false)) {
 				this.room = null;
-			else if(unit = this.map.unit(to))
+			} else if(unit = this.map.unit(to)) {
+				if(this.unit) this.unit.unselect();
 				this.unit = unit;
-			else if(this.unit)
-				this.unit.move(to);
+				this.unit.select();
+			} else if(this.unit) {
+				var room = this.map.get(to.x, to.y);
+				if(!room || room.get(to.x, to.y) > 1) return;
+				if(this.map.unit(to.x, to.y)) return;
+				this.unit.move(this.pathfinder.find(this.unit.pos, to));
+			}
 		};
 
 		return Cursor;

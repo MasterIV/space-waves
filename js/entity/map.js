@@ -3,14 +3,16 @@ define([
 	'core/graphic',
 	'basic/entity',
 	'entity/room',
+	'entity/creature',
 	'entity/door'
-], function (V2, g, Entity, Room, Door) {
+], function (V2, g, Entity, Room, Creature, Door) {
 	function Map(grid) {
 		Entity.call(this, Zero());
 
 		this.grid = grid;
 		this.map = {};
 		this.doors = {};
+		this.units = [];
 
 		this.min = new V2(0,0);
 		this.max = new V2(0,0);
@@ -86,10 +88,10 @@ define([
 
 		var result = [];
 
-		this.checkTile(result, room, pos, x-1, y);
-		this.checkTile(result, room, pos, x+1, y);
-		this.checkTile(result, room, pos, x, y+1);
-		this.checkTile(result, room, pos, x, y-1);
+		this.checkTile(result, room, pos, pos.x-1, pos.y);
+		this.checkTile(result, room, pos, pos.x+1, pos.y);
+		this.checkTile(result, room, pos, pos.x, pos.y+1);
+		this.checkTile(result, room, pos, pos.x, pos.y-1);
 
 		return result;
 	};
@@ -113,14 +115,21 @@ define([
 		if (this.map[x]) return this.map[x][y];
 	};
 
-	//Map.prototype.addCreature
+	Map.prototype.addCreature = function (type, pos, level) {
+		var creature = new Creature(pos, this, level, type);
+		this.units.push(creature);
+		this.add(creature);
+	};
 
 	Map.prototype.spawnEnemy = function (pos, level) {
-
+		this.addCreature(units.alien, pos, level);
 	};
 
 	Map.prototype.unit = function (pos) {
-		return false;
+		for(var i in this.units)
+			if(this.units[i].pos.equal(pos))
+				return this.units[i];
+		return null;
 	};
 
 	Map.prototype.inside = function () {

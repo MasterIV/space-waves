@@ -6,11 +6,8 @@ define(['geo/v2'], function (V2) {
 	Pathfinder.prototype.find = function(start, end) {
 		var path = [];
 		var open = [];
-		var nodes = [];
+		var nodes = {};
 		var current;
-
-		for (var x = 0; x < this.map.size.x; x++)
-			nodes[x] = [];
 
 		function Node(pos) {
 			this.position = pos;
@@ -24,6 +21,9 @@ define(['geo/v2'], function (V2) {
 
 		function addOpen(pos) {
 			var node;
+
+			if(!nodes[pos.x])
+				nodes[pos.x] = {};
 
 			if(nodes[pos.x][pos.y]) {
 				node = nodes[pos.x][pos.y];
@@ -41,13 +41,14 @@ define(['geo/v2'], function (V2) {
 		}
 
 		current = new Node(start);
-		open.add(current);
+		open.push(current);
+		console.log(start, end);
 
-		while(!end.equal(current)) {
+		while(!end.equal(current.position)) {
 			current.closed = true;
 			arrayRemove(open, current);
 
-			var adjacent = map.getAdjacent(current.position);
+			var adjacent = this.map.getAdjacent(current.position);
 			while( adjacent.length ) addOpen(adjacent.shift());
 			if(open.length < 1) throw "No Path available.";
 
@@ -57,10 +58,12 @@ define(['geo/v2'], function (V2) {
 		}
 
 		while( current.parent ) {
-			path.add(current.position);
+			path.unshift(current.position);
 			current = current.parent;
 		}
 
 		return path;
 	};
+
+	return Pathfinder;
 });
