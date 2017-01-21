@@ -1,12 +1,13 @@
 var rooms = [
 	{
 		img: 'img/room/commando_room.png',
+		anim: 'img/room/commando_animation.png',
 		offset: { x: 223, y: 353 },
-		icon: 'img/build menu/build_energy.png',
 		name: 'Command Central',
 		energy: 0,
 		costs: 0,
 		enabled: true,
+		buildable: false,
 		shape: [
 			[2, 2, 2],
 			[2, 2, 2],
@@ -16,11 +17,12 @@ var rooms = [
 	{
 		img: 'img/room/Generator_Room.png',
 		offset: { x: 162, y: 349 },
-		enabled: true,
-		icon: 'img/build menu/build_energy.png',
+		icon: 'img/build menu/build_energy_icon.png',
 		name: 'Generator Room',
 		energy: 100,
 		costs: 50,
+		enabled: true,
+		buildable: true,
 		shape: [
 			[2, 1, 1, 1, 1],
 			[1, 1, 1, 1, 1]

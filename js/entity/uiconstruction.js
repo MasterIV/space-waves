@@ -1,7 +1,7 @@
 define(['basic/entity', 'geo/v2', 'basic/image', 'core/graphic', 'core/sound', 'basic/layout', 'config/screen', 'basic/button'],
 	function (Entity, V2, ImageEntity, g, s, Layout, screen, Button) {
 		for(var i in rooms)
-			if(rooms[i].enabled)
+			if(rooms[i].buildable)
 				g.add(rooms[i].icon);
 
 		g.add('img/gui/main_btn_back.png');
@@ -36,7 +36,7 @@ define(['basic/entity', 'geo/v2', 'basic/image', 'core/graphic', 'core/sound', '
 			var self = this;
 
 			for(var i in rooms)
-				if(rooms[i].enabled) {
+				if(rooms[i].buildable) {
 					vLayout.add(new ConstructionButton(this, rooms[i], cursor));
 
 					if(++count > 3) {
