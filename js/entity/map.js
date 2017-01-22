@@ -152,6 +152,7 @@ define([
 		var creature = new Creature(p, this, level, type);
 		this.units.push(creature);
 		this.add(creature);
+		return creature;
 	};
 
 	Map.prototype.spawnEnemy = function (pos, level) {

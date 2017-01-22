@@ -29,7 +29,7 @@ define([
 		security: 'img/job_security.png'
 	};
 
-	function HireButton(menu, unit) {
+	function HireButton(menu, unit, scene) {
 		Entity.call(this, Zero(), new V2(296, 123));
 		this.add(new ImageEntity(Zero(), 'img/unit_info.png'));
 		this.add(new ImageEntity(new V2(2, 34), imgs[unit.type]));
@@ -39,12 +39,16 @@ define([
 
 		this.unit = unit;
 		this.menu = menu;
+		this.scene = scene;
+		this.map = scene.map;
 	}
 
 	HireButton.prototype = new Entity();
 
 	HireButton.prototype.onClick = function () {
-
+		this.parent.close();
+		var u = this.map.addCreature(units[this.unit.type], Zero(), this, this.unit.level);
+		u.name = this.unit.name;
 	};
 
 	function UIConstruction(scene) {
@@ -56,7 +60,7 @@ define([
 		var self = this;
 
 		for (var i = 0; i < 6; i++) {
-				vLayout.add(new HireButton(this, scene.availableUnits[i]));
+				vLayout.add(new HireButton(this, scene.availableUnits[i], scene));
 
 				if (++count > 3) {
 					vLayout.align("center");
