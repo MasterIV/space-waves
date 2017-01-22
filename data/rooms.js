@@ -30,15 +30,50 @@ var rooms = [
 		]
 	},
 	{
-		img: 'img/room/room2_grau.png',
+		img: 'img/room/medbay.png',
+		icon: 'img/build menu/build_med_icon.png',
+		animOffset: { x: 67, y: 24 },
+		offset: { x: 223, y: 353 },
+		name: 'Med Bay',
+		energy: -20,
+		costs: 80,
 		enabled: true,
-		icon: 'img/build menu/build_energy.png',
-		name: 'Something',
-		energy: 0,
-		costs: 0,
+		buildable: true,
 		shape: [
-			[1, 1, 1, 1, 1],
-			[1, 1, 1, 1, 1]
+			[2, 1, 1],
+			[2, 1, 1],
+			[1, 1, 0]
+		]
+	},
+	{
+		img: 'img/room/room6_grau.png',
+		icon: 'img/build menu/build_quarters_icon.png',
+		enabled: true,
+		buildable: true,
+		offset: { x: 223, y: 353 },
+		name: 'Living Quarters',
+		energy: -10,
+		costs: 50,
+		shape: [
+			[1, 1, 1],
+			[1, 1, 1],
+			[1, 1, 0],
+			[1, 1, 0]
+		]
+	},
+	{
+		img: 'img/room/firness_room.png',
+		icon: 'img/build menu/build_training_icon.png',
+		enabled: true,
+		buildable: true,
+		name: 'Training Room',
+		energy: -5,
+		costs: 100,
+		shape: [
+			[1, 1, 1],
+			[1, 1, 0],
+			[1, 1, 0],
+			[1, 1, 0]
 		]
 	},
 	{
@@ -57,34 +92,6 @@ var rooms = [
 			[1, 1, 1, 1],
 			[1, 1, 1, 1],
 			[1, 0, 0, 1]
-		]
-	},
-	{
-		img: 'img/room/room5_grau.png',
-		enabled: true,
-		icon: 'img/build menu/build_energy.png',
-		name: 'Something',
-		energy: 0,
-		costs: 0,
-		shape: [
-			[1, 1, 1],
-			[1, 1, 0],
-			[1, 1, 0],
-			[1, 1, 0]
-		]
-	},
-	{
-		img: 'img/room/room6_grau.png',
-		enabled: true,
-		icon: 'img/build menu/build_energy.png',
-		name: 'Living Quarters',
-		energy: 0,
-		costs: 0,
-		shape: [
-			[1, 1, 1],
-			[1, 1, 1],
-			[1, 1, 0],
-			[1, 1, 0]
 		]
 	},
 	{

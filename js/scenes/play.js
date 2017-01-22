@@ -27,13 +27,6 @@ define([
 				map.add(this.cursor);
 				this.map = map;
 
-				// this.viewport.add(Ship.spawn(map, 1, 30));
-				// this.viewport.add(Ship.spawn(map, 1, 30));
-				// this.viewport.add(Ship.spawn(map, 1, 30));
-				// this.viewport.add(Ship.spawn(map, 1, 30));
-				// this.viewport.add(Ship.spawn(map, 1, 30));
-				// this.viewport.add(Ship.spawn(map, 1, 30));
-
 				this.viewport.add(map);
 				this.add(new Bg(this.size));
 				this.add(this.viewport);

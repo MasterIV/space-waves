@@ -21,7 +21,7 @@ define([
 	g.add('img/build menu/build_UI.png');
 
 	function ConstructionButton(menu, room, cursor) {
-		Entity.call(this, Zero());
+		Entity.call(this, Zero(), new V2(365, 174));
 		this.add(new ImageEntity(Zero(), 'img/build menu/build_UI.png'));
 		this.add(new ImageEntity(new V2(3, 30), room.icon));
 		this.add(new TextEntity(new V2(90, 15), room.name, fonts.roomTitle));
@@ -37,8 +37,6 @@ define([
 
 		// TODO description
 
-
-		this.inheritSize();
 		this.room = room;
 		this.cursor = cursor;
 		this.menu = menu;
@@ -79,6 +77,8 @@ define([
 		hLayout.add(vLayout);
 		hLayout.align("top");
 		this.center(hLayout);
+
+		console.log(this.entities);
 
 		this.center(Button.create(new V2(0, 600), function () {
 			self.close();
