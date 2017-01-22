@@ -2,13 +2,14 @@ var rooms = [
 	{
 		img: 'img/room/commando_room.png',
 		anim: 'img/room/commando_animation.png',
-		animOffset: { x: 67, y: 24 },
-		offset: { x: 223, y: 353 },
+		animOffset: { x: 66, y: -35 },
+		offset: { x: 349, y: 292 },
 		name: 'Command Central',
 		energy: 50,
 		costs: 0,
 		enabled: true,
 		buildable: false,
+		hp: 1000,
 		shape: [
 			[1, 1, 1, 1, 1],
 			[1, 2, 2, 2, 1],
@@ -26,6 +27,7 @@ var rooms = [
 		costs: 60,
 		enabled: true,
 		buildable: true,
+		hp: 250,
 		shape: [
 			[2, 1, 1, 1, 1],
 			[1, 1, 1, 1, 1]
@@ -41,6 +43,8 @@ var rooms = [
 		costs: 80,
 		enabled: true,
 		buildable: true,
+		hp: 250,
+		heal: true,
 		shape: [
 			[2, 1, 1],
 			[2, 1, 1],
@@ -56,6 +60,7 @@ var rooms = [
 		name: 'Living Quarters',
 		energy: -10,
 		costs: 50,
+		hp: 250,
 		shape: [
 			[1, 1, 1],
 			[1, 1, 1],
@@ -71,6 +76,7 @@ var rooms = [
 		name: 'Training Room',
 		energy: -5,
 		costs: 100,
+		hp: 250,
 		shape: [
 			[1, 1, 1],
 			[1, 1, 0],
@@ -87,6 +93,7 @@ var rooms = [
 		costs: 120,
 		enabled: true,
 		buildable: true,
+		hp: 250,
 		shape: [
 			[1, 1, 1],
 			[1, 2, 1],
@@ -103,6 +110,7 @@ var rooms = [
 		costs: 110,
 		enabled: true,
 		buildable: true,
+		hp: 250,
 		shape: [
 			[2, 1, 1],
 			[1, 1, 1],

@@ -9,6 +9,7 @@ define([
 	'basic/morph'
 ], function (Entity, config, g, Animation, V2, Image, sound, Morph) {
 	var speed = 500;
+	var actionSpeed = 1000;
 
 	for(var i in units)
 		g.add(units[i].img);
@@ -21,7 +22,15 @@ define([
 		this.grid = map.grid;
 		this.map = map;
 		this.level = level;
+		this.cooldown = 0;
 		this.setPos(pos);
+
+		this.skills = {
+			attack: this.type.attack,
+			science: this.type.science,
+			engineering: this.type.engineering,
+			heal: 10
+		};
 
 		this.selected = false;
 		this.cursor = new Animation('img/char_selection.png', new V2(-64, -118), 4, 200, true);
@@ -98,11 +107,45 @@ define([
 					self.setState('idle');
 				self.moving = false;
 			}));
+		} else if (!this.type.enemy) {
+			this.cooldown += delta;
+
+			if (this.cooldown >= actionSpeed) {
+				this.cooldown -= actionSpeed;
+				var room = this.map.get(this.pos.x, this.pos.y);
+				//var enemy = this.findCreatureTarget(room);
+
+				/*if(enemy) {
+					enemy.harm(this.skills.attack);
+					this.add( new Animation('img/fight_animation.png', Zero(), 5, 200) );
+					this.train('attack');
+					this.train('hp');
+					return;
+				}*/
+
+				/*if( this.enemy ) {
+					if (room.hp > 1) {
+						room.harm(this.skills.attack);
+						this.add( new Animation('img/fight_animation.png', Zero(), 5, 200) );
+					}
+
+					if (room.hp < 1) {
+						var target = this.findRoomTarget();
+						if (target) this.walk(target);
+					}
+				} else {*/
+					room.use(this);
+				//}
+			}
 		}
 	};
 
 	Creature.prototype.move = function(path) {
 		this.path = path;
+	};
+
+	Creature.prototype.train = function (toTrain) {
+		return;
 	};
 
 	Creature.prototype.click = null;
