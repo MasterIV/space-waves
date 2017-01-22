@@ -46,7 +46,7 @@ define([
 	HireButton.prototype = new Entity();
 
 	HireButton.prototype.onClick = function () {
-		this.parent.close();
+		this.menu.close();
 		var u = this.map.addCreature(units[this.unit.type], Zero(), this, this.unit.level);
 		u.name = this.unit.name;
 	};
