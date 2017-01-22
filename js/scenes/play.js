@@ -22,7 +22,7 @@ define([
 				this.gui = new UIController(this);
 
 				map.addRoom(new V2(-2, -2), rooms[0], true);
-				map.addRoom(new V2(2, -1), rooms[1], true);
+				map.addRoom(new V2(3, -1), rooms[1], true);
 				map.addCreature(units.engineer, new V2(2, 0), 1);
 				map.add(this.cursor);
 				this.map = map;
