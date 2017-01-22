@@ -99,7 +99,7 @@ define([
 	Map.prototype.checkTile = function(result, room, pos, x, y) {
 		var dest = this.get(x, y);
 
-		if(dest == room && room.get(x, y) == 1)
+		if(dest == room && room.get(x, y) < 2)
 			result.push(new V2(x, y));
 
 		if(this.doors[x] && this.doors[x][y]) {
@@ -115,8 +115,41 @@ define([
 		if (this.map[x]) return this.map[x][y];
 	};
 
+	Map.prototype.findPosition = function(pos) {
+		var self = this;
+
+		function checkPos(pos) {
+			var room = self.get(pos.x, pos.y);
+			var unit = self.unit(pos);
+			return !unit && room && room.get(pos.x, pos.y) < 2;
+		}
+
+		var checked = {};
+		var next = [pos];
+
+		function addNext(x, y) {
+			if(!checked[x]) checked[x] = {};
+			if(checked[x][y]) return;
+			checked[x][y] = true;
+			next.push(new V2(x, y));
+		}
+
+		while(next.length) {
+			var p = next.shift();
+			if(checkPos(p)) return p;
+			addNext(p.x+1, p.y);
+			addNext(p.x-1, p.y);
+			addNext(p.x, p.y+1);
+			addNext(p.x, p.y-1);
+		}
+
+		return null;
+	};
+
 	Map.prototype.addCreature = function (type, pos, level) {
-		var creature = new Creature(pos, this, level, type);
+		var p = this.findPosition(pos);
+		if(!p) return;
+		var creature = new Creature(p, this, level, type);
 		this.units.push(creature);
 		this.add(creature);
 	};
@@ -135,7 +168,6 @@ define([
 	Map.prototype.inside = function () {
 		return true;
 	};
-
 
 	return Map;
 });
