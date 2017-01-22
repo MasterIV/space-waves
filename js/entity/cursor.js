@@ -25,6 +25,16 @@ define(['geo/v2', 'basic/entity', 'core/graphic', 'basic/image', 'core/mouse', '
 			this.z = room ? room.z + 2 : -1e20;
 		};
 
+		Cursor.prototype.onDraw = function(ctx) {
+			if(this.room) {
+				ctx.globalAlpha = .3;
+				ctx.drawImage(g[this.room.img],
+					-this.room.offset.x + this.grid.size.x,
+					-this.room.offset.y + this.grid.size.y);
+				ctx.globalAlpha = 1;
+			}
+		};
+
 		Cursor.prototype.onClick = function() {
 			var to = this.grid.getIso(mouse);
 			var unit;

@@ -21,7 +21,7 @@ var rooms = [
 		icon: 'img/build menu/build_energy_icon.png',
 		name: 'Generator Room',
 		energy: 100,
-		costs: 50,
+		costs: 60,
 		enabled: true,
 		buildable: true,
 		shape: [
