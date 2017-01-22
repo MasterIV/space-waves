@@ -30,7 +30,9 @@ define([
 
 		var resources = new ImageEntity(new V2(0, 555), 'img/main_hud.png');
 		resources.onClick = function() { scene.viewport.scrollTo(scene.size.quo(2), 500 );};
-		this.center(resources );
+		this.center(resources);
+
+
 
 		this.menu = {
 			construct: new UIConstruction(scene.cursor)
@@ -38,7 +40,6 @@ define([
 	}
 
 	UIController.prototype = new Entity();
-
 
 	UIController.prototype.togglePause = function () {
 		this.parent.Pause();
