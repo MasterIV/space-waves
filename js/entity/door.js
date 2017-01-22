@@ -16,13 +16,12 @@ define([
 
 		if(dir) {
 			offset = new V2(-5, 20);
-			p1.sub(offset);
-			p2.sub(offset);
 		} else {
-			offset = new V2(10, 40);
-			p1.add(offset);
-			p2.add(offset);
+			offset = new V2(50, 20);
 		}
+
+		p1.sub(offset);
+		p2.sub(offset);
 
 		if(p1.y < p2.y) {
 			Entity.call(this, p1 );
