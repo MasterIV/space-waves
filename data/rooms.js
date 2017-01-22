@@ -61,8 +61,8 @@ var rooms = [
 		costs: 50,
 		hp: 250,
 		shape: [
-			[1, 1, 1],
-			[1, 1, 1],
+			[2, 1, 1],
+			[2, 1, 1],
 			[1, 1, 0],
 			[1, 1, 0]
 		]
@@ -78,8 +78,8 @@ var rooms = [
 		costs: 100,
 		hp: 250,
 		shape: [
-			[1, 1, 1],
-			[1, 1, 0],
+			[2, 1, 1],
+			[2, 1, 0],
 			[1, 1, 0],
 			[1, 1, 0]
 		]
@@ -94,6 +94,7 @@ var rooms = [
 		enabled: true,
 		buildable: true,
 		hp: 250,
+		ranged: true,
 		shape: [
 			[1, 1, 1],
 			[1, 2, 1],

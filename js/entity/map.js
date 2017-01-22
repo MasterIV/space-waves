@@ -4,8 +4,9 @@ define([
 	'basic/entity',
 	'entity/room',
 	'entity/creature',
-	'entity/door'
-], function (V2, g, Entity, Room, Creature, Door) {
+	'entity/door',
+	'lib/wavemanager'
+], function (V2, g, Entity, Room, Creature, Door, WaveManager) {
 	function Map(grid) {
 		Entity.call(this, Zero());
 
@@ -156,7 +157,8 @@ define([
 	};
 
 	Map.prototype.spawnEnemy = function (pos, level) {
-		this.addCreature(units.alien, pos, level);
+		var alien = this.addCreature(units.alien, pos, level);
+		WaveManager.addAlien(alien);
 	};
 
 	Map.prototype.unit = function (pos) {

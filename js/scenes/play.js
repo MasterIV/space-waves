@@ -7,8 +7,10 @@ define([
 		'entity/background',
 		'entity/cursor',
 		'entity/map',
-		'entity/ship'
-	], function (Scene, V2, UIController, IsoGrid, Viewport, Bg, Cursor, Map, Ship) {
+		'entity/ship',
+		'lib/wavemanager',
+		'entity/laser'
+	], function (Scene, V2, UIController, IsoGrid, Viewport, Bg, Cursor, Map, Ship, WaveManager, Laser) {
 			function PlayScene() {
 				Scene.call(this);
 				this.viewport = new Viewport(true);
@@ -28,6 +30,8 @@ define([
 				this.map = map;
 
 				this.viewport.add(map);
+				this.laser = new Laser();
+				this.viewport.add(this.laser);
 				this.add(new Bg(this.size));
 				this.add(this.viewport);
 				this.add(this.gui);
@@ -36,6 +40,8 @@ define([
 				this.timeout = 30000;
 				this.onTimeout = true;
 				this.timeBuffer = 29999;
+
+				this.credits = 400;
 
 				this.setUnits(1);
 			}
@@ -47,7 +53,7 @@ define([
 				var names = ['Felix', 'Tobias', 'Walter', 'Paul', 'Horst'];
 
 				this.availableUnits = [];
-				for (var i = 0; i< 9; i++) {
+				for (var i = 0; i< 6; i++) {
 					var level = Math.max(1, Math.round(avgLevel + Math.random() * 2 - 1));
 					this.availableUnits.push({
 						name: names[(Math.random()*names.length)|0],
@@ -73,6 +79,11 @@ define([
 					this.timeBuffer += delta;
 					if (this.timeBuffer >= this.timeout) {
 						this.nextWave();
+					}
+				} else {
+					if (!WaveManager.isEnemyLeft()) {
+						this.onTimeout = true;
+						this.timeBuffer = 0;
 					}
 				}
 			};

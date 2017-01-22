@@ -6,8 +6,9 @@ define([
 	'geo/v2',
 	'basic/image',
 	'core/sound',
-	'basic/morph'
-], function (Entity, config, g, Animation, V2, Image, sound, Morph) {
+	'basic/morph',
+	'lib/wavemanager'
+], function (Entity, config, g, Animation, V2, Image, sound, Morph, WaveManager) {
 	g.add('img/spaceship1.png');
 
 	function Ship(pos, map, level, direction, crew) {
@@ -32,6 +33,7 @@ define([
 		this.isSpawning = false;
 		this.crew = crew;
 		this.shrinking = 0;
+		this.isShrinking = false;
 
 		this.img = new Animation('img/spaceship1.png', new V2(-256, -312), new V2(1, 4), 5000, true);
 		if (direction)
@@ -73,7 +75,9 @@ define([
 				ship_pos.y = random_y;
 				break;
 		}
-		return new Ship(ship_pos, map, level, ship_dir, crew);
+		var ship = new Ship(ship_pos, map, level, ship_dir, crew);
+		WaveManager.addShip(ship);
+		return ship;
 	};
 
 	Ship.prototype.onDraw = function(ctx) {
@@ -137,6 +141,11 @@ define([
 
 	Ship.prototype.shrinkAway = function (delta) {
 		this.shrinking += delta;
+
+		if (!this.isShrinking) {
+			this.isShrinking = true;
+			WaveManager.removeShip(this);
+		}
 
 		if (this.shrinking >= 10000) {
 			this.parent.remove(this);

@@ -30,6 +30,11 @@ define([
 
 		if (this.type.heal)
 			this.heal = 10;
+		if (type.ranged) {
+			this.ranged = true;
+			this.progress = 0;
+			this.firingProgress = 5; // when to shoot
+		}
 
 		if (type.anim) {
 			this.add(new Animation(type.anim, Zero().add(type.offset).dif(type.animOffset), 8, 150, true));
@@ -40,6 +45,14 @@ define([
 
 	Room.prototype.onDraw = function (ctx) {
 		ctx.drawImage(this.img, 0, 0);
+	};
+
+	Room.prototype.onUpdate = function (delta) {
+		if (this.ranged) {
+			if (this.progress >= this.firingProgress) {
+				
+			}
+		}
 	};
 
 	Room.prototype.each = function(callback) {
@@ -68,18 +81,13 @@ define([
 	Room.prototype.use = function(creature) {
 		if(this.hp < this.maxHp) {
 			this.repair(creature.skills.engineering);
-			//creature.train('repair');
+			creature.train('repair');
 			return;
 		}
 
-		if(this.gold) {
-			this.progress += creature.skills.miner;
-			creature.train('miner');
-		}
-
 		if(this.ranged) {
-			this.progress += creature.skills.ranged;
-			creature.train('ranged');
+			this.progress += creature.skills.engineering;
+			creature.train('engineering');
 		}
 
 		if(this.train) {
