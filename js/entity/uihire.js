@@ -18,7 +18,7 @@ define([
 
 	g.add('img/gui/main_btn_back.png');
 	g.add('img/gui/main_btn_back_hover.png');
-	g.add('img/unit_info.png');
+	g.add('img/unit_buy.png');
 	g.add('img/job_engineer.png');
 	g.add('img/job_scentist.png');
 	g.add('img/job_security.png');
@@ -31,7 +31,7 @@ define([
 
 	function HireButton(menu, unit, scene) {
 		Entity.call(this, Zero(), new V2(296, 123));
-		this.add(new ImageEntity(Zero(), 'img/unit_info.png'));
+		this.add(new ImageEntity(Zero(), 'img/unit_buy.png'));
 		this.add(new ImageEntity(new V2(2, 34), imgs[unit.type]));
 		this.add(new TextEntity(new V2(90, 22), unit.name, fonts.roomTitle));
 		this.add(new TextEntity(new V2(250, 80), unit.level ));
@@ -59,7 +59,7 @@ define([
 		var count = 1;
 		var self = this;
 
-		for (var i = 0; i < 6; i++) {
+		for (var i in scene.availableUnits) {
 				vLayout.add(new HireButton(this, scene.availableUnits[i], scene));
 
 				if (++count > 3) {

@@ -47,7 +47,7 @@ define([
 				var names = ['Felix', 'Tobias', 'Walter', 'Paul', 'Horst'];
 
 				this.availableUnits = [];
-				for (var i = 0; i< 6; i++) {
+				for (var i = 0; i< 9; i++) {
 					var level = Math.max(1, Math.round(avgLevel + Math.random() * 2 - 1));
 					this.availableUnits.push({
 						name: names[(Math.random()*names.length)|0],
