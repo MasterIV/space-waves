@@ -2,8 +2,6 @@ define(['lib/scene', 'entity/back', 'basic/text', 'geo/v2', 'entity/background',
 		function(Scene, BackButton, TextEntity, V2, Bg, g, ImageEntity, Animation) {
 			g.add('img/credits_1.png');
 			g.add('img/credits_2.png');
-			g.add('img/ruru_alien.png');
-			g.add('img/character_astronaut_blue.png');
 			g.add('img/room/commando_room.png');
 			g.add('img/room/commando_animation.png');
 
@@ -26,16 +24,16 @@ define(['lib/scene', 'entity/back', 'basic/text', 'geo/v2', 'entity/background',
 				this.spot2.visible = false;
 				this.add(this.spot2);
 
-				var dude1 = new Animation('img/character_astronaut_blue.png', new V2(150, 520), new V2(4, 4), 200, true);
+				var dude1 = new Animation(units.science.img, new V2(150, 520), new V2(4, 4), 200, true);
 				dude1.state = 1;
 				this.add(dude1);
-				var dude2 = new Animation('img/ruru_alien.png', new V2(1280-290, 520), new V2(4, 4), 200, true);
-				dude2.state = 3;
+				var dude2 = new Animation(units.alien.img, new V2(1280-290, 520), new V2(4, 4), 200, true);
+				dude2.state = 2;
 				this.add(dude2);
 
 				var dj_back = new ImageEntity(new V2(30,-200), 'img/room/commando_room.png');
 				this.add(dj_back);
-				var dj_front = new Animation('img/room/commando_animation.png', new V2(30+156,-200+329), 8, 100, true);
+				var dj_front = new Animation('img/room/commando_animation.png', new V2(30+155,-200+327), 8, 100, true);
 				this.add(dj_front);
 			}
 

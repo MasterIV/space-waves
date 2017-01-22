@@ -8,7 +8,7 @@ define([
 	'core/sound',
 	'basic/morph'
 ], function (Entity, config, g, Animation, V2, Image, sound, Morph) {
-	g.add('img/spaceship1.png');
+	g.add('img/spaceship1_sprite1.png');
 
 	function Ship(pos, map, level, direction, crew) {
 		Entity.call(this, map.grid.getPixels(pos), new V2(512, 624));
@@ -33,7 +33,7 @@ define([
 		this.crew = crew;
 		this.shrinking = 0;
 
-		this.img = new Animation('img/spaceship1.png', new V2(-256, -312), new V2(1, 1), 5000, true);
+		this.img = new Animation('img/spaceship1_sprite1.png', new V2(-256, -312), new V2(1, 1), 5000, true);
 		this.img.state = 0;
 		this.add(this.img);
 	}

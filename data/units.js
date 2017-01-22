@@ -41,7 +41,7 @@ var units = {
 		engineering: 1
 	},
 	alien: {
-		img: 'img/ruru_alien.png',
+		img: 'img/alien_spritesheet.png',
 		enemy: true,
 		health: 1.2,
 		attack: 1.4,

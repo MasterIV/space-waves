@@ -11,7 +11,7 @@ define([
 	], function (Scene, V2, UIController, IsoGrid, Viewport, Bg, Cursor, Map, Ship) {
 			function PlayScene() {
 				Scene.call(this);
-				this.viewport = new Viewport();
+				this.viewport = new Viewport(true);
 				this.viewport.position = this.size.quo(2);
 				this.viewport.dragable(true, true);
 
