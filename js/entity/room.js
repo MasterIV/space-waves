@@ -20,9 +20,16 @@ define([
 
 		Entity.call(this, grid.getPixels(pos).dif(type.offset));
 		this.img = g[type.img];
+		this.type = type;
 		this.pos = pos;
 		this.shape = type.shape;
 		this.z = this.position.y;
+
+		this.hp = this.type.hp;
+		this.maxHp = this.hp;
+
+		if (this.type.heal)
+			this.heal = 10;
 
 		if (type.anim) {
 			this.add(new Animation(type.anim, Zero().add(type.offset).dif(type.animOffset), 8, 150, true));
@@ -56,6 +63,36 @@ define([
 			return 1;
 
 		return this.shape[x][y];
+	};
+
+	Room.prototype.use = function(creature) {
+		if(this.hp < this.maxHp) {
+			this.repair(creature.skills.engineering);
+			//creature.train('repair');
+			return;
+		}
+
+		if(this.gold) {
+			this.progress += creature.skills.miner;
+			creature.train('miner');
+		}
+
+		if(this.ranged) {
+			this.progress += creature.skills.ranged;
+			creature.train('ranged');
+		}
+
+		if(this.train) {
+			creature.train('attack');
+			creature.train('hp');
+		}
+
+		if(this.heal) {
+			var heal = Math.round(creature.skills.hp * this.heal);
+			creature.hp = Math.min(creature.hp+heal, creature.skills.hp);
+			//if(creature.hp < creature.skills.hp)
+				//this.add(new Actionanimation(heal, this.shape, true, graphic['img/heart_icon.png']));
+		}
 	};
 
 	Room.prototype.click = null;

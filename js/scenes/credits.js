@@ -31,9 +31,9 @@ define(['lib/scene', 'entity/back', 'basic/text', 'geo/v2', 'entity/background',
 				dude2.state = 2;
 				this.add(dude2);
 
-				var dj_back = new ImageEntity(new V2(30,-200), 'img/room/commando_room.png');
+				var dj_back = new ImageEntity(new V2(-150,-200), 'img/room/commando_room.png');
 				this.add(dj_back);
-				var dj_front = new Animation('img/room/commando_animation.png', new V2(30+155,-200+327), 8, 100, true);
+				var dj_front = new Animation('img/room/commando_animation.png', new V2(-150+283,-200+327), 8, 100, true);
 				this.add(dj_front);
 			}
 
