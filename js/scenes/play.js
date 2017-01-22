@@ -37,7 +37,7 @@ define([
 				this.add(this.gui);
 
 				this.wave = 0;
-				this.timeout = 30000;
+				this.timeout = 10000;
 				this.onTimeout = true;
 				this.timeBuffer = 29999;
 
