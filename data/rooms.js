@@ -46,7 +46,7 @@ var rooms = [
 		]
 	},
 	{
-		img: 'img/room/room6_grau.png',
+		img: 'img/room/Living_Quarters.png',
 		icon: 'img/build menu/build_quarters_icon.png',
 		enabled: true,
 		buildable: true,
@@ -77,64 +77,34 @@ var rooms = [
 		]
 	},
 	{
-		img: 'img/room/room3_grau.png',
+		img: 'img/room/weapon_room.png',
+		icon: 'img/build menu/build_weapon_icon.png',
+		offset: { x: 223, y: 353 },
+		name: 'Turret',
+		energy: -40,
+		costs: 120,
+		enabled: true,
+		buildable: true,
 		shape: [
-			[1, 0, 0],
 			[1, 1, 1],
-			[1, 1, 1],
-			[1, 0, 0]
+			[1, 2, 1],
+			[1, 1, 1]
 		]
 	},
 	{
-		img: 'img/room/room4_grau.png',
+		img: 'img/room/lab_room.png',
+		icon: 'img/build menu/build_lab_icon.png',
+		animOffset: { x: 67, y: 24 },
+		offset: { x: 223, y: 353 },
+		name: 'Med Bay',
+		energy: -25,
+		costs: 110,
+		enabled: true,
+		buildable: true,
 		shape: [
-			[1, 0, 0, 1],
-			[1, 1, 1, 1],
-			[1, 1, 1, 1],
-			[1, 0, 0, 1]
-		]
-	},
-	{
-		img: 'img/room/room7_grau.png',
-		shape: [
-			[1, 1, 1, 1],
-			[1, 1, 1, 1],
-			[1, 1, 0, 0]
-		]
-	},
-	{
-		img: 'img/room/room8_grau.png',
-		shape: [
-			[1, 1, 1, 1],
-			[1, 1, 1, 1],
-			[0, 1, 1, 0]
-		]
-	},
-	{
-		img: 'img/room/room9_grau.png',
-		shape: [
-			[1, 1, 0],
-			[1, 1, 1],
+			[2, 1, 1],
 			[1, 1, 1],
 			[1, 1, 0]
-		]
-	},
-	{
-		img: 'img/room/room10_grau.png',
-		shape: [
-			[0, 1, 1],
-			[1, 1, 1],
-			[1, 1, 1],
-			[1, 1, 0]
-		]
-	},
-	{
-		img: 'img/room/room11_grau.png',
-		shape: [
-			[1, 1, 0],
-			[1, 1, 1],
-			[1, 1, 1],
-			[0, 1, 1]
 		]
 	}
 ];

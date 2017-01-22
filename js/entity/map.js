@@ -99,7 +99,7 @@ define([
 	Map.prototype.checkTile = function(result, room, pos, x, y) {
 		var dest = this.get(x, y);
 
-		if(dest == room)
+		if(dest == room && room.get(x, y) == 1)
 			result.push(new V2(x, y));
 
 		if(this.doors[x] && this.doors[x][y]) {
