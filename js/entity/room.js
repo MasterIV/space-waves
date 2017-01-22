@@ -3,8 +3,12 @@ define([
 	'core/graphic',
 	'basic/entity',
 	'basic/rect',
-	'lib/animation'
-], function (V2, g, Entity, RectEntity, Animation) {
+	'lib/animation',
+	'lib/wavemanager',
+	'core/sound'
+], function (V2, g, Entity, RectEntity, Animation, WaveManager, s) {
+	s.add('snd/laser.ogg');
+
 	for(var i in rooms) {
 		if(rooms[i].enabled) {
 				g.add(rooms[i].img);
@@ -34,6 +38,7 @@ define([
 			this.ranged = true;
 			this.progress = 0;
 			this.firingProgress = 5; // when to shoot
+			this.damage = 5;
 		}
 
 		if (type.anim) {
@@ -50,7 +55,8 @@ define([
 	Room.prototype.onUpdate = function (delta) {
 		if (this.ranged) {
 			if (this.progress >= this.firingProgress) {
-				
+				this.fire();
+				this.progress -= this.firingProgress;
 			}
 		}
 	};
@@ -100,6 +106,25 @@ define([
 			creature.hp = Math.min(creature.hp+heal, creature.skills.hp);
 			//if(creature.hp < creature.skills.hp)
 				//this.add(new Actionanimation(heal, this.shape, true, graphic['img/heart_icon.png']));
+		}
+	};
+
+	Room.prototype.fire = function () {
+		var nearestShip;
+		var closestDist = 10000000;
+		for (var i = 0; i < WaveManager.ships.length; i++) {
+			var distance = this.pos.dist(WaveManager.ships[i].pos);
+			if (distance < closestDist) {
+				nearestShip = WaveManager.ships[i];
+				closestDist = distance;
+			}
+		}
+		if (nearestShip) {
+			var from = new V2(this.position.x + this.type.offset.x, this.position.y + this.type.offset.y);
+			var to = new V2(nearestShip.position.x, nearestShip.position.y);
+			this.parent.parent.parent.laser.addLaser(from, to, 5);
+			nearestShip.damage(this.damage);
+			s.play('snd/laser.ogg');
 		}
 	};
 

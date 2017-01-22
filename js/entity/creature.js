@@ -6,8 +6,10 @@ define([
 	'geo/v2',
 	'basic/image',
 	'core/sound',
-	'basic/morph'
-], function (Entity, config, g, Animation, V2, Image, sound, Morph) {
+	'basic/morph',
+	'lib/wavemanager'
+], function (Entity, config, g, Animation, V2, Image, sound, Morph, WaveManager) {
+	sound.add('snd/laser_small.ogg');
 	var speed = 500;
 	var actionSpeed = 1000;
 
@@ -24,6 +26,8 @@ define([
 		this.level = level;
 		this.cooldown = 0;
 		this.setPos(pos);
+
+		this.hp = 100;
 
 		this.skills = {
 			attack: this.type.attack,
@@ -113,6 +117,24 @@ define([
 			if (this.cooldown >= actionSpeed) {
 				this.cooldown -= actionSpeed;
 				var room = this.map.get(this.pos.x, this.pos.y);
+				if (!this.type.enemy) {
+					var enemy;
+					for (var i = 0; i < WaveManager.aliens.length; i++) {
+						var other_room = this.map.get(WaveManager.aliens[i].pos.x, WaveManager.aliens[i].pos.y);
+						if (room == other_room) {
+							enemy = WaveManager.aliens[i];
+							break;
+						}
+					}
+					if (enemy) {
+						var from = new V2(this.position.x, this.position.y-20);
+						var to = new V2(enemy.position.x + Math.round(Math.random()*10-5), enemy.position.y + Math.round(Math.random()*10-5));
+						this.parent.parent.parent.laser.addLaser(from, to, 2);
+						enemy.damage(this.skills.attack * 50);
+						sound.play('snd/laser_small.ogg');
+						return;
+					}
+				}
 				//var enemy = this.findCreatureTarget(room);
 
 				/*if(enemy) {
@@ -137,6 +159,14 @@ define([
 					room.use(this);
 				//}
 			}
+		}
+	};
+
+	Creature.prototype.damage = function (dmg) {
+		this.hp -= dmg;
+		if (this.hp <= 0) {
+			this.parent.remove(this);
+			WaveManager.removeAlien(this);
 		}
 	};
 

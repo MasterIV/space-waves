@@ -24,7 +24,7 @@ define([
 				this.gui = new UIController(this);
 
 				map.addRoom(new V2(-2, -2), rooms[0], true);
-				map.addRoom(new V2(3, -1), rooms[6], true);
+				map.addRoom(new V2(3, -1), rooms[5], true);
 				map.addCreature(units.engineer, new V2(2, 0), 1);
 				map.add(this.cursor);
 				this.map = map;
@@ -70,7 +70,7 @@ define([
 				var enemyLevel = Math.ceil(this.wave/4);
 
 				for (var i = 0; i < ships; i++)
-					this.viewport.add(Ship.spawn(this.map, enemyLevel, 3, crewMembers));
+					this.viewport.add(Ship.spawn(this.map, enemyLevel, 30, crewMembers));
 				this.setUnits(enemyLevel);
 			};
 

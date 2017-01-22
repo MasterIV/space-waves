@@ -30,7 +30,7 @@ define(['basic/entity'], function(Entity) {
 				if (this.currentShots[i][3] >= this.laserDuration)
 					toRemove.push(i);
 			}
-			for (var j = 0; j < toRemove; j++) {
+			for (var j = 0; j < toRemove.length; j++) {
 				this.currentShots.splice(toRemove[j]-j, 1);
 			}
 		};

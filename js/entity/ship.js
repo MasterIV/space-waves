@@ -35,6 +35,8 @@ define([
 		this.shrinking = 0;
 		this.isShrinking = false;
 
+		this.hp = 25;
+
 		this.img = new Animation('img/spaceship1.png', new V2(-256, -312), new V2(1, 4), 5000, true);
 		if (direction)
 			this.img.state = direction - 1;
@@ -157,6 +159,15 @@ define([
 		this.position.y += 1;
 		this.img.position.x = -256 + this.size.x/2 * shrinkFactor;
 		this.img.position.y = -312 + this.size.y/2 * shrinkFactor;
+	};
+
+	Ship.prototype.damage = function (dmg) {
+		this.hp -= dmg;
+		if (this.hp <= 0) {
+			this.movement = false;
+			this.isSpawning = true;
+			this.crew = 0;
+		}
 	};
 
 	return Ship;
