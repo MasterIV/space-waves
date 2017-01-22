@@ -26,13 +26,15 @@ define([
 		this.selected = false;
 		this.cursor = new Animation('img/char_selection.png', new V2(-64, -118), 4, 200, true);
 		this.animations = {
-			walk: new Animation(type.img, new V2(-64, -118), new V2(4, 4), 200, true),
-			idle: new Animation(type.img, new V2(-64, -118), new V2(4, 4), 200, true),
-			fight: new Animation(type.img, new V2(-64, -118), new V2(4, 4), 200, true),
+			walk: new Animation(type.img, new V2(-64, -118), new V2(4, 4), 300, true),
+			idle: new Animation(type.img, new V2(-64, -118), new V2(4, 4), 500, true),
+			fight: new Animation(type.img, new V2(-64, -118), new V2(4, 4), 300, true),
 		};
+		this.animations.idle.setFixedFrame(2);
 
 		this.setState('idle');
 		this.add(this.img);
+		this.setDirection(2);
 
 		this.path = [];
 	}

@@ -15,7 +15,15 @@ define(['basic/entity', 'core/graphic', 'geo/v2'],
 
 			Animation.prototype = new Entity();
 
+			Animation.prototype.setFixedFrame = function (frame) {
+				this.fixedFrame = frame;
+			};
+
 			Animation.prototype.onUpdate = function(delta) {
+				if (this.fixedFrame != undefined) {
+					this.frame = this.fixedFrame;
+					return;
+				}
 				this.anitime += delta;
 				this.frame = Math.floor( this.anitime / this.duration );
 
@@ -27,7 +35,10 @@ define(['basic/entity', 'core/graphic', 'geo/v2'],
 			};
 
 			Animation.prototype.onDraw = function(ctx) {
-				ctx.drawImage( this.img, this.frame*this.size.x, this.state*this.size.y, this.size.x, this.size.y, 0, 0, this.size.x, this.size.y );
+				if (this.scale)
+					ctx.drawImage( this.img, this.frame*this.size.x, this.state*this.size.y, this.size.x, this.size.y, 0, 0, this.size.x*this.scale, this.size.y*this.scale );
+				else
+					ctx.drawImage( this.img, this.frame*this.size.x, this.state*this.size.y, this.size.x, this.size.y, 0, 0, this.size.x, this.size.y );
 			};
 
 			return Animation;

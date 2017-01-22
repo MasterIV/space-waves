@@ -3,3 +3,9 @@ game_button_positive.ogg, game_button_negative.ogg, game_button_error.ogg - CC-B
 
 pause_music.mp3 - CC0
     by wikbeats (http://freesound.org/people/wikbeats/sounds/211869/)
+
+menu_music.mp3 - CC-BY 3.0
+	by joshuaempyre (http://freesound.org/people/joshuaempyre/sounds/251461/)
+
+game_music.mp3 - CC-BY 3.0
+	by sawsquarenoise (http://freemusicarchive.org/music/sawsquarenoise/RottenMage_SpaceJacked/RottenMage_SpaceJacked_OST_05)

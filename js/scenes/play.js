@@ -25,6 +25,7 @@ define([
 				map.addRoom(new V2(2, -1), rooms[1], true);
 				map.addCreature(units.engineer, new V2(2, 0), 1);
 				map.add(this.cursor);
+				this.map = map;
 
 				// this.viewport.add(Ship.spawn(map, 1, 30));
 				// this.viewport.add(Ship.spawn(map, 1, 30));
@@ -38,15 +39,43 @@ define([
 				this.add(this.viewport);
 				this.add(this.gui);
 
+				this.wave = 0;
+				this.timeout = 30000;
+				this.onTimeout = true;
+				this.timeBuffer = 29999;
 			}
 
 			PlayScene.prototype = new Scene();
 
-			// PlayScene.prototype.update = function (delta) {
-			// 	this.display = document.getElementById('gameframe');
-			// 	this.display.width = this.room.size.x;
-			// 	this.display.height = this.room.size.y;
-			// };
+			PlayScene.prototype.launchWave = function () {
+				// BALANCING!
+
+				// One new ship every 10 waves
+				var ships = Math.max(Math.floor((this.wave+10) / 10), 1);
+				// One extra level every 5 waves
+				var enemyLevel = Math.max(Math.floor((this.wave+5) / 5), 1);
+				// After every level up, start with 1 crew member per ship, increase to 5
+				var crewMembers = Math.max(Math.floor(this.wave % 5 + 1), 1)
+
+				for (var i = 0; i < ships; i++)
+					this.viewport.add(Ship.spawn(this.map, enemyLevel, 3, crewMembers));
+			};
+
+			PlayScene.prototype.onUpdate = function (delta) {
+				if(this.onTimeout) {
+					this.timeBuffer += delta;
+					if (this.timeBuffer >= this.timeout) {
+						this.nextWave();
+					}
+				}
+			};
+
+			PlayScene.prototype.nextWave = function () {
+				this.wave++;
+				this.timeBuffer = 0;
+				this.onTimeout = false;
+				this.launchWave();
+			};
 
 			PlayScene.prototype.Pause = function () {
 

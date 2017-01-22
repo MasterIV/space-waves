@@ -55,6 +55,7 @@ define(['config/config', 'config/screen', 'config/fonts'],
 				if( screen.scale ) window.onresize = function() { self.resize(); };
 
 				this.scene = scene;
+				if(scene.loaded) scene.loaded();
 				this.lastUpdate = Date.now();
 				this.loop();
 			},

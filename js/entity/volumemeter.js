@@ -77,6 +77,7 @@ define(['basic/entity', 'geo/v2', 'basic/text', 'basic/image', 'core/mouse', 'co
             if (this.type == "music") {
                 document.getElementById("game_music").volume = val / 100;
                 document.getElementById("pause_music").volume = val / 100;
+                document.getElementById("menu_music").volume = val / 100;
             }
         };
 

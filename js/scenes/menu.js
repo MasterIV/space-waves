@@ -36,6 +36,7 @@ define([
 			this.add(new Bg(this.size));
 
 			this.playButton = Button.create(new V2(0, 680), function() {
+				document.getElementById('menu_music').pause();
 				document.getElementById('game_music').play();
 
 				game.scene = require('config/scenes').play;
@@ -44,6 +45,7 @@ define([
 			this.continueButton = Button.create(new V2(0, 680), function() {
 				self.vLayout.addfirst(self.playButton);
 				self.vLayout.remove(self.continueButton);
+				self.vLayout.remove(self.restartButton);
 
 				document.getElementById('pause_music').currentTime = 0;
 				document.getElementById('pause_music').pause();
@@ -91,6 +93,10 @@ define([
 		}
 
 		MenuScene.prototype = new Scene();
+
+		MenuScene.prototype.loaded = function () {
+			document.getElementById("menu_music").play();
+		};
 
 		MenuScene.prototype.toggleFullScreen = function() {
 			if (!document.fullscreenElement &&    // alternative standard method

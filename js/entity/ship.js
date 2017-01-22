@@ -10,14 +10,13 @@ define([
 ], function (Entity, config, g, Animation, V2, Image, sound, Morph) {
 	g.add('img/spaceship1.png');
 
-	function Ship(pos, map, level, direction, crew, scene) {
+	function Ship(pos, map, level, direction, crew) {
 		Entity.call(this, map.grid.getPixels(pos), new V2(512, 624));
 
 		this.pos = pos;
 		this.grid = map.grid;
 		this.map = map;
 		this.level = level;
-		this.scene = scene;
 
 		// 0 = north \^
 		// 1 = east ->
@@ -32,6 +31,7 @@ define([
 		this.spawnBuffer = 0;
 		this.isSpawning = false;
 		this.crew = crew;
+		this.shrinking = 0;
 
 		this.img = new Animation('img/spaceship1.png', new V2(-256, -312), new V2(1, 1), 5000, true);
 		this.img.state = 0;
@@ -40,7 +40,7 @@ define([
 
 	Ship.prototype = new Entity();
 
-	Ship.spawn = function(map, level, distance, crew, scene) {
+	Ship.spawn = function(map, level, distance, crew) {
 		var ship_dir = Math.floor(Math.random() * 4);
 		var ship_pos = new V2(0,0);
 		switch (ship_dir) {
@@ -69,7 +69,7 @@ define([
 				ship_pos.y = random_y;
 				break;
 		}
-		return new Ship(ship_pos, map, level, ship_dir, crew, scene);
+		return new Ship(ship_pos, map, level, ship_dir, crew);
 	};
 
 	Ship.prototype.onDraw = function(ctx) {
@@ -78,10 +78,15 @@ define([
 
 	Ship.prototype.onUpdate = function (delta) {
 		if (this.isSpawning) {
+			if(!this.crew) {
+				this.shrinkAway(delta);
+				return;
+			}
 			this.spawnBuffer += delta;
 			if (this.spawnBuffer >= this.spawnTime) {
 				this.spawnBuffer = 0;
 				this.map.spawnEnemy(this.unload, 1);
+				this.crew--;
 			}
 			return;
 		}
@@ -126,10 +131,19 @@ define([
 		this.isSpawning = true;
 	};
 
-	Ship.prototype.onClick = function () {
-		if(this.type.enemy) return false;
-		//this.map.selectUnit(this);
-		return true;
+	Ship.prototype.shrinkAway = function (delta) {
+		this.shrinking += delta;
+
+		if (this.shrinking >= 10000) {
+			this.parent.remove(this);
+			return;
+		}
+
+		var shrinkFactor = this.shrinking / 10000;
+		this.img.scale = 1 - shrinkFactor;
+		this.position.y += 1;
+		this.img.position.x = -256 + this.size.x/2 * shrinkFactor;
+		this.img.position.y = -312 + this.size.y/2 * shrinkFactor;
 	};
 
 	return Ship;
