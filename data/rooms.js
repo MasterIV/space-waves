@@ -5,7 +5,7 @@ var rooms = [
 		animOffset: { x: 67, y: 24 },
 		offset: { x: 223, y: 353 },
 		name: 'Command Central',
-		energy: 0,
+		energy: 50,
 		costs: 0,
 		enabled: true,
 		buildable: false,
