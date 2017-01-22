@@ -52,7 +52,7 @@ define([
 
 	UIController.prototype.toggleHireMenu = function () {
 		this.menu.construct.open();
-		this.parent.block(this.menu.construct);
+		this.parent.block(new UIHire(this.parent));
 	};
 
 	UIController.prototype.toggleMenu = function () {

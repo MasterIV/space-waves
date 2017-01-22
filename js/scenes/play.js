@@ -36,22 +36,36 @@ define([
 				this.timeout = 30000;
 				this.onTimeout = true;
 				this.timeBuffer = 29999;
+
+				this.setUnits(1);
 			}
 
 			PlayScene.prototype = new Scene();
 
-			PlayScene.prototype.launchWave = function () {
-				// BALANCING!
+			PlayScene.prototype.setUnits = function(avgLevel) {
+				var types = ['engineer', 'science', 'security'];
+				var names = ['Felix', 'Tobias', 'Walter', 'Paul', 'Horst'];
 
-				// One new ship every 10 waves
-				var ships = Math.max(Math.floor((this.wave+10) / 10), 1);
-				// One extra level every 5 waves
-				var enemyLevel = Math.max(Math.floor((this.wave+5) / 5), 1);
-				// After every level up, start with 1 crew member per ship, increase to 5
-				var crewMembers = Math.max(Math.floor(this.wave % 5 + 1), 1)
+				this.availableUnits = [];
+				for (var i = 0; i< 6; i++) {
+					var level = Math.max(1, Math.round(avgLevel + Math.random() * 2 - 1));
+					this.availableUnits.push({
+						name: names[(Math.random()*names.length)|0],
+						type: types[(Math.random()*types.length)|0],
+						level: level,
+						costs: (level+1)*40
+					});
+				}
+			};
+
+			PlayScene.prototype.launchWave = function () {
+				var ships = Math.floor(this.wave/3+1);
+				var crewMembers = Math.ceil(this.wave/5);
+				var enemyLevel = Math.ceil(this.wave/4);
 
 				for (var i = 0; i < ships; i++)
 					this.viewport.add(Ship.spawn(this.map, enemyLevel, 3, crewMembers));
+				this.setUnits(enemyLevel);
 			};
 
 			PlayScene.prototype.onUpdate = function (delta) {
